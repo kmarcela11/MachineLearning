@@ -1,4 +1,4 @@
-# Parcial 1 - Machine Learning
+# **Parcial 1 - Machine Learning**
 
 - Estudiantes:
 
