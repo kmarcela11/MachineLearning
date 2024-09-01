@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Machine Learning</title>
+    <title>Ejercicio 2 &#8212; Machine Learning</title>
   
   
   
@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Ejercicio2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="Ejercicio3.html" />
-    <link rel="prev" title="Content with notebooks" href="notebooks.html" />
+    <link rel="next" title="Ejercicio 3" href="Ejercicio3.html" />
+    <link rel="prev" title="Ejercicio 1" href="Ejercicio1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,8 +179,11 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Ejercicio1.html"><strong>Ejercicio 1</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Ejercicio 2</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ejercicio3.html"><strong>Ejercicio 3</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ejercicio4.html"><strong>Ejercicio 4</strong></a></li>
 </ul>
 
     </div>
@@ -334,7 +337,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>Ejercicio 2</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -343,9 +346,9 @@ document.write(`
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda-etl"><strong>EDA + ETL</strong></a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -356,7 +359,19 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>GOLA</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="ejercicio-2">
+<h1><strong>Ejercicio 2</strong><a class="headerlink" href="#ejercicio-2" title="Link to this heading">#</a></h1>
+<section id="eda-etl">
+<h2><strong>EDA + ETL</strong><a class="headerlink" href="#eda-etl" title="Link to this heading">#</a></h2>
+<p>Dado los siguientes conjuntos de datos <code class="docutils literal notranslate"><span class="pre">NeurIPS</span> <span class="pre">2024-</span> <span class="pre">Predict</span> <span class="pre">New</span> <span class="pre">Medicines</span> <span class="pre">with</span> <span class="pre">BELKA</span></code> y <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Problems–</span> <span class="pre">Single-Cell</span> <span class="pre">Perturbations</span></code>, realizar un análisis exploratorio de datos el cual incluya lo siguiente:</p>
+<ul class="simple">
+<li><p>Análisis del problema de aplicación. Realice un resumen describiendo la importancia del problema, en que consiste y la fuente de los datos. Realice descripción del tipos de variables, calcular <em>número de observaciones, media, desviación estándar, mínimo, máximo, cuartiles</em>, realizar conteo de <em>datos faltantes y su porcentaje, histograma o diagrama de barras para la variable respuesta e independientes según corresponda</em>. Análisis de <em>simetría, datos atípicos y dispersión, etc,…</em> por medio de <code class="docutils literal notranslate"><span class="pre">boxplot()</span></code>. <em>Análisis bivariado</em>. <code class="docutils literal notranslate"><span class="pre">Trazado</span> <span class="pre">de</span> <span class="pre">scatterplot()</span> <span class="pre">y</span> <span class="pre">regplot()</span></code>. En cada figura agregar un análisis y descripción. Complemente el EDA con visualizaciones que muestren patrones importantes presentes en los datos.</p></li>
+<li><p>Según corresponda, realizar imputación de datos faltantes usando imputación múltiple iteraticva (ver <code class="docutils literal notranslate"><span class="pre">IterativeImputer()</span></code>).Realizar reducción de dimensionalidad por medio de eliminiación de columnas altamente correlacionadas usando <em>Variance Inflation Factor (VIF)</em>. Para esto se recomienda usar la siguiente librería <code class="docutils literal notranslate"><span class="pre">variance_inflation_factor()</span></code>. Un <em>VIF ≥ 10</em> indica alta multicolinealidad entre una variable independiente y mas de dos variables explicativas.</p></li>
+</ul>
+<p>Recomendación:</p>
+<p>Eliminar una columna a la vez. Aquella con el máximo VIF ≥ 10. Luego, para el nuevo pandas, calcular nuevamente VIF e identificar nuevas columnas con VIF ≥ 10 máximo, y así sucesivamente hasta obtener solo valores de VIF &lt; 10. Según corresponda, variables categóricas deben previamente codificarse usando por ejemplo <code class="docutils literal notranslate"><span class="pre">OneHotEncoder()</span></code> ver por ejemplo Aplicación: Titanic Dataset. Pueden mantener las variables categóricas antes de la codificación previa al entrenamiento del modelo y reducir multicolinealidad usando la prueba <code class="docutils literal notranslate"><span class="pre">chi2_contingency()</span></code>. Si el número de variables explicativas es pequeño y además, cada una de las variables son de gran importancia para explicar las predicciones, una alternativa correcta es mantenerlas todas. Como Científico de Datos, tome la decisión más adecuada y justifíquela.</p>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -389,12 +404,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="notebooks.html"
+       href="Ejercicio1.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Content with notebooks</p>
+        <p class="prev-next-title"><strong>Ejercicio 1</strong></p>
       </div>
     </a>
     <a class="right-next"
@@ -402,7 +417,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title"><strong>Ejercicio 3</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -421,9 +436,9 @@ document.write(`
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda-etl"><strong>EDA + ETL</strong></a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
