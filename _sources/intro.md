@@ -1,12 +1,14 @@
 # Parcial 1 - Machine Learning
 
+### Estudiantes:
 
-```Estudiantes:
-            - Kanery Marcela Camargo Rodríguez
-            - Emanuel de Jesús Carbonell Naranjo
+- Kanery Marcela Camargo Rodríguez.
+- Emanuel de Jesús Carbonell Naranjo.
 
-    Septiembre 2024
-    Ciencia de Datos
-    UNINORTE
-    
-```
+### Profesor: Lihki Rubio 
+
+### Ciencia de Datos
+
+### Universidad del Norte
+
+### Septiembre 2024
