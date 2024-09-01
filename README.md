@@ -4,7 +4,7 @@
 - Kanery Marcela Camargo Rodríguez.
 - Emanuel de Jesús Carbonell Naranjo.
 
-### Profesor: Lihki Rubio 
+### Profesor: Dr. Lihki Rubio 
 
 ### Ciencia de Datos
 
