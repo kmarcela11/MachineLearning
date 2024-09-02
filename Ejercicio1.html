@@ -348,6 +348,13 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-notas-de-clase"><strong>Ejercicio Notas de Clase</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-necesarias"><strong>Librerias necesarias</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#breast-cancer"><strong>Breast Cancer</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-gridsearch"><strong>Método GridSearch</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearch-manual"><strong>GridSearch Manual</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boston-housting"><strong>Boston Housting</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -378,7 +385,7 @@ document.write(`
 </div>
 </li>
 </ul>
-<p><strong>Cuadro 1: Modelo de clasificació para detección de fraude</strong></p>
+<p><strong>Cuadro 1: Modelo de clasificación para detección de fraude</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Modelo</strong></p></th>
@@ -433,6 +440,107 @@ document.write(`
 </tbody>
 </table>
 </div>
+</section>
+<section id="librerias-necesarias">
+<h2><strong>Librerias necesarias</strong><a class="headerlink" href="#librerias-necesarias" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_breast_cancer</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="breast-cancer">
+<h2><strong>Breast Cancer</strong><a class="headerlink" href="#breast-cancer" title="Link to this heading">#</a></h2>
+<p>En este caso, contamos con un conjunto de datos sobre el cáncer de mama (<code class="docutils literal notranslate"><span class="pre">Breast</span> <span class="pre">Cancer</span></code>). Nótese que al tratarse de un tema de salud crítico, es de vital importancia escoger la métrica más acertada para asegurarnos de dar las mejores estimaciones. Es por ello, que en este caso, decidimos trabajar con <em><code class="docutils literal notranslate"><span class="pre">Recall</span></code></em>. Esta métrica nos permitirá limitar los falsos negativos, es decir, aquellas observaciones que en realidad SI tienen cáncer pero en realidad fueron predichas como que NO tienen.</p>
+<p>Inicialmente se hace el cargue del conjunto de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_cancer</span> <span class="o">=</span> <span class="n">load_breast_cancer</span><span class="p">()</span> <span class="c1"># Datos</span>
+<span class="n">X</span> <span class="o">=</span>  <span class="n">data_cancer</span><span class="o">.</span><span class="n">data</span> <span class="c1"># Características</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data_cancer</span><span class="o">.</span><span class="n">target</span> <span class="c1"># Etiquetas</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dividimos el conjunto de entrenamiento y prueba</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="c1"># stratify = y :  garantiza que tanto el conjunto de entrenamiento como el de prueba representen la distribución de las clases.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="metodo-gridsearch">
+<h3><strong>Método GridSearch</strong><a class="headerlink" href="#metodo-gridsearch" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se usa el pipeline donde primero se escala las características de los datos</span>
+<span class="c1"># Luego se ajusta el modelo de clasificación</span>
+<span class="n">pipeline_knn</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())])</span> 
+
+<span class="c1"># Se usa el param_grid para definir los hiperparámetros de los modelos a evaluar.</span>
+<span class="n">param_grid_knn</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span> <span class="c1"># Número de vecinos del modelo</span>
+                   <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]}]</span> 
+
+<span class="c1"># Aplicación del método GridSearchCV para KNN</span>
+<span class="n">grid_met</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_knn</span><span class="p">,</span> <span class="n">param_grid_knn</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;recall&#39;</span><span class="p">)</span>
+<span class="n">grid_met</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejores parámetros:&quot;</span><span class="p">,</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor Recall: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">grid_met</span><span class="o">.</span><span class="n">best_score_</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Score:&#39;</span><span class="p">,</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejores parámetros: {&#39;clasificador__n_neighbors&#39;: 13, &#39;clasificador__weights&#39;: &#39;uniform&#39;}
+Mejor Recall: 1.00
+Score: 1.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Aplicación del método GridSearchCV para regresión logística</span>
+<span class="n">pipeline_rl</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>  <span class="n">tol</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))])</span>
+<span class="n">param_grid_lr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;clasificador__C&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]}</span>
+<span class="n">grid_rl</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rl</span><span class="p">,</span> <span class="n">param_grid_lr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;recall&#39;</span><span class="p">)</span>
+<span class="n">grid_rl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejores parámetros:&quot;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor Recall:&quot;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Score:&#39;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejores parámetros: {&#39;clasificador__C&#39;: 0.01}
+Mejor Recall: 1.0
+Score: 1.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="gridsearch-manual">
+<h3><strong>GridSearch Manual</strong><a class="headerlink" href="#gridsearch-manual" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="boston-housting">
+<h2><strong>Boston Housting</strong><a class="headerlink" href="#boston-housting" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -501,6 +609,13 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-notas-de-clase"><strong>Ejercicio Notas de Clase</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-necesarias"><strong>Librerias necesarias</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#breast-cancer"><strong>Breast Cancer</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodo-gridsearch"><strong>Método GridSearch</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearch-manual"><strong>GridSearch Manual</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boston-housting"><strong>Boston Housting</strong></a></li>
 </ul>
   </nav></div>
 
