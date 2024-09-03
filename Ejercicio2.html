@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Ejercicio 2 &#8212; Machine Learning</title>
+    <title>PRUEBA &#8212; Machine Learning</title>
   
   
   
@@ -181,7 +181,7 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio1.html"><strong>Ejercicio 1</strong></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Ejercicio 2</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PRUEBA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio3.html"><strong>Ejercicio 3</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio4.html"><strong>Ejercicio 4</strong></a></li>
 </ul>
@@ -227,18 +227,50 @@
 <div class="article-header-buttons">
 
 
-<a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FEjercicio2.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button"
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FEjercicio2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   <i class="fas fa-lightbulb"></i>
   </span>
-
+<span class="btn__text-container">Open issue</span>
 </a>
+</li>
+      
+  </ul>
+</div>
 
 
 
@@ -324,9 +356,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -337,19 +367,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Ejercicio 2</h1>
+    <h1>PRUEBA</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda-etl"><strong>EDA + ETL</strong></a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -359,18 +381,85 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ejercicio-2">
-<h1><strong>Ejercicio 2</strong><a class="headerlink" href="#ejercicio-2" title="Link to this heading">#</a></h1>
-<section id="eda-etl">
-<h2><strong>EDA + ETL</strong><a class="headerlink" href="#eda-etl" title="Link to this heading">#</a></h2>
-<p>Dado los siguientes conjuntos de datos <code class="docutils literal notranslate"><span class="pre">NeurIPS</span> <span class="pre">2024-</span> <span class="pre">Predict</span> <span class="pre">New</span> <span class="pre">Medicines</span> <span class="pre">with</span> <span class="pre">BELKA</span></code> y <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Problems–</span> <span class="pre">Single-Cell</span> <span class="pre">Perturbations</span></code>, realizar un análisis exploratorio de datos el cual incluya lo siguiente:</p>
-<ul class="simple">
-<li><p>Análisis del problema de aplicación. Realice un resumen describiendo la importancia del problema, en que consiste y la fuente de los datos. Realice descripción del tipos de variables, calcular <em>número de observaciones, media, desviación estándar, mínimo, máximo, cuartiles</em>, realizar conteo de <em>datos faltantes y su porcentaje, histograma o diagrama de barras para la variable respuesta e independientes según corresponda</em>. Análisis de <em>simetría, datos atípicos y dispersión, etc,…</em> por medio de <code class="docutils literal notranslate"><span class="pre">boxplot()</span></code>. <em>Análisis bivariado</em>. <code class="docutils literal notranslate"><span class="pre">Trazado</span> <span class="pre">de</span> <span class="pre">scatterplot()</span> <span class="pre">y</span> <span class="pre">regplot()</span></code>. En cada figura agregar un análisis y descripción. Complemente el EDA con visualizaciones que muestren patrones importantes presentes en los datos.</p></li>
-<li><p>Según corresponda, realizar imputación de datos faltantes usando imputación múltiple iteraticva (ver <code class="docutils literal notranslate"><span class="pre">IterativeImputer()</span></code>).Realizar reducción de dimensionalidad por medio de eliminiación de columnas altamente correlacionadas usando <em>Variance Inflation Factor (VIF)</em>. Para esto se recomienda usar la siguiente librería <code class="docutils literal notranslate"><span class="pre">variance_inflation_factor()</span></code>. Un <em>VIF ≥ 10</em> indica alta multicolinealidad entre una variable independiente y mas de dos variables explicativas.</p></li>
-</ul>
-<p>Recomendación:</p>
-<p>Eliminar una columna a la vez. Aquella con el máximo VIF ≥ 10. Luego, para el nuevo pandas, calcular nuevamente VIF e identificar nuevas columnas con VIF ≥ 10 máximo, y así sucesivamente hasta obtener solo valores de VIF &lt; 10. Según corresponda, variables categóricas deben previamente codificarse usando por ejemplo <code class="docutils literal notranslate"><span class="pre">OneHotEncoder()</span></code> ver por ejemplo Aplicación: Titanic Dataset. Pueden mantener las variables categóricas antes de la codificación previa al entrenamiento del modelo y reducir multicolinealidad usando la prueba <code class="docutils literal notranslate"><span class="pre">chi2_contingency()</span></code>. Si el número de variables explicativas es pequeño y además, cada una de las variables son de gran importancia para explicar las predicciones, una alternativa correcta es mantenerlas todas. Como Científico de Datos, tome la decisión más adecuada y justifíquela.</p>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="prueba">
+<h1>PRUEBA<a class="headerlink" href="#prueba" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;adata_train.parquet&#39;</span><span class="p">,</span> <span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;adata_train.parquet&#39;</span><span class="p">,</span> <span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\io\parquet.py:667,</span> in <span class="ni">read_parquet</span><span class="nt">(path, engine, columns, storage_options, use_nullable_dtypes, dtype_backend, filesystem, filters, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">664</span>     <span class="n">use_nullable_dtypes</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">665</span> <span class="n">check_dtype_backend</span><span class="p">(</span><span class="n">dtype_backend</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">667</span> <span class="k">return</span> <span class="n">impl</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">668</span>     <span class="n">path</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">669</span>     <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">670</span>     <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">671</span>     <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">672</span>     <span class="n">use_nullable_dtypes</span><span class="o">=</span><span class="n">use_nullable_dtypes</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">673</span>     <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">674</span>     <span class="n">filesystem</span><span class="o">=</span><span class="n">filesystem</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">675</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">676</span> <span class="p">)</span>
+
+<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\io\parquet.py:267,</span> in <span class="ni">PyArrowImpl.read</span><span class="nt">(self, path, columns, filters, use_nullable_dtypes, dtype_backend, storage_options, filesystem, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">264</span> <span class="k">if</span> <span class="n">manager</span> <span class="o">==</span> <span class="s2">&quot;array&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span>     <span class="n">to_pandas_kwargs</span><span class="p">[</span><span class="s2">&quot;split_blocks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># type: ignore[assignment]</span>
+<span class="ne">--&gt; </span><span class="mi">267</span> <span class="n">path_or_handle</span><span class="p">,</span> <span class="n">handles</span><span class="p">,</span> <span class="n">filesystem</span> <span class="o">=</span> <span class="n">_get_path_or_handle</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span>     <span class="n">path</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span>     <span class="n">filesystem</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span>     <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">271</span>     <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">272</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">273</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">274</span>     <span class="n">pa_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">parquet</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">275</span>         <span class="n">path_or_handle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">276</span>         <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">279</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">280</span>     <span class="p">)</span>
+
+<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\io\parquet.py:140,</span> in <span class="ni">_get_path_or_handle</span><span class="nt">(path, fs, storage_options, mode, is_dir)</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span> <span class="n">handles</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span>     <span class="ow">not</span> <span class="n">fs</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>     <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_dir</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>     <span class="c1"># fsspec resources can also point to directories</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>     <span class="c1"># this branch is used for example when reading from non-fsspec URLs</span>
+<span class="ne">--&gt; </span><span class="mi">140</span>     <span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span>         <span class="n">path_or_handle</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">is_text</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span>
+<span class="g g-Whitespace">    </span><span class="mi">142</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="n">fs</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span>     <span class="n">path_or_handle</span> <span class="o">=</span> <span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
+
+<span class="nn">File ~\miniconda3\envs\ml_venv\lib\site-packages\pandas\io\common.py:882,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">873</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">874</span>             <span class="n">handle</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">875</span>             <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">878</span>             <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">879</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">880</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">881</span>         <span class="c1"># Binary mode</span>
+<span class="ne">--&gt; </span><span class="mi">882</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">883</span>     <span class="n">handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">885</span> <span class="c1"># Convert BytesIO or file objects passed with an encoding</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;adata_train.parquet&#39;
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -427,21 +516,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda-etl"><strong>EDA + ETL</strong></a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
