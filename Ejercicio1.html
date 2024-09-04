@@ -57,10 +57,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Ejercicio1';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="PRUEBA" href="Ejercicio2.html" />
+    <link rel="next" title="&lt;no title&gt;" href="Ejercicio2.html" />
     <link rel="prev" title="Parcial 1 - Machine Learning" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,7 +183,6 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Ejercicio 1</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Ejercicio2.html">PRUEBA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio3.html"><strong>Ejercicio 3</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio4.html"><strong>Ejercicio 4</strong></a></li>
 </ul>
@@ -523,7 +524,6 @@ document.write(`
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">mglearn</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -545,35 +545,39 @@ document.write(`
 </div>
 <section id="metodo-gridsearchcv">
 <h3><strong>Método GridSearchCV</strong><a class="headerlink" href="#metodo-gridsearchcv" title="Link to this heading">#</a></h3>
+<p>A continuación se muestra la implementación del método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> utilizando pipelines, junto con la hiperparametrización correspondiente según el modelo que se desee evaluar. En este caso, se considerarán dos modelos: <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier()</span></code> y <code class="docutils literal notranslate"><span class="pre">LogisticRegression()</span></code>.</p>
 <section id="gridsearchcv-k-nn">
 <h4><strong>GridSearchCV K-NN</strong><a class="headerlink" href="#gridsearchcv-k-nn" title="Link to this heading">#</a></h4>
+<p>Inicialmente, se realiza la partición del conjunto de datos utilizando el método <code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code>, configurando el parámetro <code class="docutils literal notranslate"><span class="pre">stratify</span></code> igual al conjunto de etiquetas (<code class="docutils literal notranslate"><span class="pre">stratify</span> <span class="pre">=</span> <span class="pre">y</span></code>). Esto garantiza que la proporción de clases se mantenga consistente tanto en el conjunto de entrenamiento como en el de prueba, asegurando una distribución equilibrada de las etiquetas en ambas divisiones. Además se fija un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
-<span class="c1"># Stratify = y : Asegura que la proporción de clases se mantenga en los conjuntos de entrenamiento y prueba respecto a las etiquetas. </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
 </div>
+<p>A continuación, se procede a la construcción del pipeline, donde se especifica que primero se debe realizar el escalamiento de los datos mediante el método <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> y, posteriormente, ajustar el modelo de clasificación, que en este caso es <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier()</span></code>. Se utiliza un <code class="docutils literal notranslate"><span class="pre">param_grid_knn</span></code> para definir los hiperparámetros a evaluar, donde se especifica el número de vecinos del modelo y el peso que toma cada uno de ellos. Seguido a ello, se construye el esquema de validación cruzada mediante el método <code class="docutils literal notranslate"><span class="pre">StratifiedKFold()</span></code>. Finalmente, se aplica el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> con cada uno de los argumentos correspondientes y tomando en cuenta la métrica más adecuada para este ejemplo, que en este caso es el <code class="docutils literal notranslate"><span class="pre">recall</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se usa el pipeline donde primero se escala las características de los datos</span>
-<span class="c1"># Luego se ajusta el modelo de clasificación</span>
-
-<span class="c1"># Preprocesamiento: Escalación</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preprocesamiento: Escalación</span>
 <span class="c1"># Clasificación: Modelo</span>
 
 <span class="n">pipeline_knn</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())])</span> 
 
-<span class="c1"># Se usa el param_grid para definir los hiperparámetros de los modelos a evaluar.</span>
 <span class="n">param_grid_knn</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="c1"># Número de vecinos del modelo</span>
                    <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]}]</span> 
 
 <span class="n">kf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
 
-<span class="c1"># Aplicación del método GridSearchCV para KNN</span>
 <span class="n">grid_met</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_knn</span><span class="p">,</span> <span class="n">param_grid_knn</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kf</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;recall&#39;</span><span class="p">)</span>
-<span class="n">grid_met</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ahora, se entrena el modelo y se imprimen los resultados</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_met</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejores parámetros:&quot;</span><span class="p">,</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor Recall en conjunto de entrenamiento: &quot;</span><span class="p">,</span><span class="n">grid_met</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -590,16 +594,23 @@ Mejor Recall en conjunto de test: 1.0
 </div>
 </div>
 </div>
+<p>Los resultados muestran que el modelo K-NN, con <span class="math notranslate nohighlight">\(11\)</span> vecinos y peso uniforme (sin priorizar la cercanía de los vecinos), logró un <code class="docutils literal notranslate"><span class="pre">recall</span></code> de <span class="math notranslate nohighlight">\(0,99\)</span> en el conjunto de entrenamiento y de <span class="math notranslate nohighlight">\(1\)</span> en el de prueba. Esto indica que el modelo clasifica correctamente casi todas las muestras positivas, obteniendo un buen ajuste tanto en entrenamiento como en prueba, sin indicios de sobreajuste.</p>
 </section>
 <section id="gridsearchcv-regresion-logistica">
 <h4><strong>GridSearchCV Regresión logística</strong><a class="headerlink" href="#gridsearchcv-regresion-logistica" title="Link to this heading">#</a></h4>
+<p>En esta parte, procedemos de forma similar al método anterior, con la diferencia de que en este caso los hiperparámetros corresponden a diferentes valores que toma el parámetro <code class="docutils literal notranslate"><span class="pre">C</span></code>, necesarios para aplicar la <code class="docutils literal notranslate"><span class="pre">LogisticRegression()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># MinMaxScaler: para normalizar nuestros datos entre 0 y 1</span>
+
 <span class="n">pipeline_rl</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+
 <span class="n">param_grid_lr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;clasificador__C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]}</span>
+
 <span class="n">kf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+
 <span class="n">grid_rl</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rl</span><span class="p">,</span> <span class="n">param_grid_lr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kf</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;recall&#39;</span><span class="p">)</span>
+
 <span class="n">grid_rl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor Recall en conjunto de entrenamiento:&quot;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
@@ -617,10 +628,14 @@ Mejor Recall en conjunto de test: 1.0
 </div>
 </div>
 </div>
+<p>El modelo de regresión logística con el parámetro <code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">=</span> <span class="pre">0.01</span></code> alcanzó un <code class="docutils literal notranslate"><span class="pre">recall</span></code> perfecto <span class="math notranslate nohighlight">\((1.0)\)</span> tanto en el conjunto de entrenamiento como en el de prueba.
+Esto puede ser una señal de sobreajuste ya que ambos conjuntos tienen resultados idénticos. Sin embargo, también puede ser una señal de que el modelo clasifica todas las muestras positivas correctament.</p>
 </section>
 </section>
 <section id="gridsearch-manual">
 <h3><strong>GridSearch Manual</strong><a class="headerlink" href="#gridsearch-manual" title="Link to this heading">#</a></h3>
+<p>A continuación se muestra la implementación del método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> de forma manual.</p>
+<p>Inicialmente, se realiza la partición del conjunto de datos en los diferentes conjuntos de entrenamiento y prueba, configurando el parámetro <code class="docutils literal notranslate"><span class="pre">stratify</span></code> igual al conjunto de etiquetas (<code class="docutils literal notranslate"><span class="pre">stratify</span> <span class="pre">=</span> <span class="pre">y</span></code>) y fijando un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code>. Es importante utilizar estos argumentos de manera igual al implementar los métodos, para asegurar que se obtengan los mismos resultados.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
@@ -628,6 +643,7 @@ Mejor Recall en conjunto de test: 1.0
 </div>
 </div>
 </div>
+<p>A continuación se crea una función llamada <code class="docutils literal notranslate"><span class="pre">validacion_cruzada</span></code>, donde se implementa una validación cruzada estratificada utilizando <code class="docutils literal notranslate"><span class="pre">StratifiedKFold()</span></code> con 5 divisiones. Primero, se inicializa un escalador <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> para normalizar los datos en cada iteración. Dentro del ciclo, el conjunto de datos de entrenamiento (<code class="docutils literal notranslate"><span class="pre">X_train</span></code> y <code class="docutils literal notranslate"><span class="pre">y_train</span></code>) se divide en subconjuntos de entrenamiento y validación, y luego los datos se escalan usando <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> . Luego, de acuerdo al modelo que se quiera evaluar, se entrena con el subconjunto de entrenamiento y se predicen las etiquetas para el conjunto de validación. El <code class="docutils literal notranslate"><span class="pre">recall</span></code> se calcula comparando las predicciones con las etiquetas reales del conjunto de validación, y este valor se almacena en una lista llamada <code class="docutils literal notranslate"><span class="pre">scores</span></code>. Finalmente, la función devuelve la lista de <code class="docutils literal notranslate"><span class="pre">recall</span></code> de cada iteración.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validacion_cruzada</span><span class="p">(</span><span class="n">modelo</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
@@ -656,6 +672,7 @@ Mejor Recall en conjunto de test: 1.0
 </div>
 <section id="gridsearchcv-manual-k-nn">
 <h4><strong>GridSearchCV manual K-NN</strong><a class="headerlink" href="#gridsearchcv-manual-k-nn" title="Link to this heading">#</a></h4>
+<p>Después de ejecutar la función <code class="docutils literal notranslate"><span class="pre">validacion_cruzada</span></code>, se genera un ciclo en el que se aplica el modelo <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier()</span></code> para cada valor de vecinos. Los resultados de cada modelo se almacenan en una lista llamada <code class="docutils literal notranslate"><span class="pre">scores</span></code>. Luego, se calcula el promedio de todos los <code class="docutils literal notranslate"><span class="pre">scores</span></code> obtenidos para realizar la respectiva comparación, lo que permite identificar el mejor <code class="docutils literal notranslate"><span class="pre">recall</span></code> de la validación cruzada y determinar los mejores parámetros para el modelo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recalls</span> <span class="o">=</span> <span class="p">[]</span>
@@ -685,9 +702,11 @@ Mejor parámetro: 11, Mejor weight: uniform
 </div>
 </div>
 </div>
+<p>Luego de haber aplicado el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> de forma manual e indicándole cada una de las características asignadas al modelo evaluado con el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code>, notamos que se obtiene el mismo <code class="docutils literal notranslate"><span class="pre">recall</span></code> y el mismo parámetro. Esto nos permite afirmar aún más que el modelo K-NN, con 11 vecinos y peso uniforme, logró un <code class="docutils literal notranslate"><span class="pre">recall</span></code> de <span class="math notranslate nohighlight">\(0.99\)</span>.</p>
 </section>
 <section id="gridsearchcv-manual-regresion-logistica">
 <h4><strong>GridSearchCV manual Regresión logística</strong><a class="headerlink" href="#gridsearchcv-manual-regresion-logistica" title="Link to this heading">#</a></h4>
+<p>En esta parte se procede de forma similar a lo anterior, con la diferencia de que los parámetros utilizados en el ciclo que aplicará la validación cruzada corresponden al modelo de regresión logística.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">param</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span>
@@ -714,10 +733,12 @@ Mejor parámetro: 0.01
 </div>
 </div>
 </div>
+<p>Nótese que el resultado obtenido es igual al que se obtuvo usando el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code></p>
 </section>
 </section>
 <section id="cuadro-1">
 <h3><strong>Cuadro 1</strong><a class="headerlink" href="#cuadro-1" title="Link to this heading">#</a></h3>
+<p>Ahora se realizan predicciones utilizando diferentes métricas, como precisión, <code class="docutils literal notranslate"><span class="pre">precision</span></code>, <code class="docutils literal notranslate"><span class="pre">recall</span></code>,<code class="docutils literal notranslate"><span class="pre">F1-score</span></code> y <code class="docutils literal notranslate"><span class="pre">ROC_AUC</span></code>, para analizar cómo varía el rendimiento del modelo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
@@ -798,12 +819,12 @@ Mejor parámetro: 0.01
 </table>
 </div></div></div>
 </div>
-<p>Luego de haber analizado diferentes modelos de clasificación para este conjunto de datos, de diferentes formas (manual y métodos), se puede concluir que el modelo que tiene mejor ajuste a la clasificación de cáncer respecto a la métrica <code class="docutils literal notranslate"><span class="pre">Recall</span></code>, es la regresión logística</p>
+<p>De la tabla se puede concluir que el modelo K-NN tiene un mejor rendimiento, con una <code class="docutils literal notranslate"><span class="pre">precision</span></code> de <span class="math notranslate nohighlight">\(0.93\)</span>, un <code class="docutils literal notranslate"><span class="pre">F1-Score</span></code> de <span class="math notranslate nohighlight">\(0.96\)</span> y un <code class="docutils literal notranslate"><span class="pre">ROC</span> <span class="pre">AUC</span></code> de <span class="math notranslate nohighlight">\(0.93\)</span>, Ambos modelos alcanzaron un <code class="docutils literal notranslate"><span class="pre">recall</span></code> perfecto de <span class="math notranslate nohighlight">\(1.0\)</span>, lo que significa que clasificaron correctamente todas las muestras positivas. Sin embargo, K-NN se desempeña mejor en las demás métricas.</p>
 </section>
 </section>
 <section id="boston-housting">
 <h2><strong>Boston Housting</strong><a class="headerlink" href="#boston-housting" title="Link to this heading">#</a></h2>
-<p>Inicialmente se hace el cargue del conjunto de datos</p>
+<p>En esta parte, trabajaremos con el conjunto de datos de Boston Housing, el cual contiene información relacionada con el valor de las viviendas en distintos barrios residenciales de Boston. Para comenzar, cargamos el conjunto de datos extendido utilizando la función <code class="docutils literal notranslate"><span class="pre">load_extended_boston()</span></code> de la librería <code class="docutils literal notranslate"><span class="pre">mglearn</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">mglearn</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_extended_boston</span><span class="p">()</span>
@@ -813,8 +834,10 @@ Mejor parámetro: 0.01
 </div>
 <section id="metodo-gridsearch-cv">
 <h3><strong>Método GridSearch CV</strong><a class="headerlink" href="#metodo-gridsearch-cv" title="Link to this heading">#</a></h3>
+<p>A continuación se muestra la implementación del método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> utilizando pipelines, junto con la hiperparametrización correspondiente según el modelo que se desee evaluar. En este caso, se considerarán dos modelos: <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor()</span></code> y <code class="docutils literal notranslate"><span class="pre">LinearRegression()</span></code>.</p>
 <section id="gridsearchcv-k-nn-regressor">
 <h4><strong>GridSearchCV K-NN Regressor</strong><a class="headerlink" href="#gridsearchcv-k-nn-regressor" title="Link to this heading">#</a></h4>
+<p>Inicialmente, se realiza la partición del conjunto de datos utilizando el método <code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code> y  se fija un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code>. En este caso, como se trata de un problema de regresión no es necesario usar stratify, ya que no hay clases categóricas a balancear.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
@@ -822,6 +845,7 @@ Mejor parámetro: 0.01
 </div>
 </div>
 </div>
+<p>Ahora, se construye un <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> que escala los datos con <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> y ajusta un modelo <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor()</span></code>. El parámetro a ajustar es el número de vecinos, definido en el rango de 2 a 12 (<code class="docutils literal notranslate"><span class="pre">param_grid_kr</span></code>). Se utiliza validación cruzada con 5 divisiones mediante <code class="docutils literal notranslate"><span class="pre">KFold</span></code>, y la búsqueda de los mejores parámetros se realiza con <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code>, optimizando según la métrica <code class="docutils literal notranslate"><span class="pre">R2</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_kr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),(</span><span class="s1">&#39;knr&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">())])</span>
@@ -851,9 +875,11 @@ RMSE en el conjunto de test para KNN: 4.608433299974619
 </div>
 </div>
 </div>
+<p>El mejor modelo K-NN Regressor utiliza <span class="math notranslate nohighlight">\(2\)</span> vecinos, obteniendo un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.75\)</span> en el conjunto de entrenamiento y <span class="math notranslate nohighlight">\(0.74\)</span> en el de prueba, lo que indica que el modelo generaliza bien. El error cuadrático medio (RMSE) en el conjunto de prueba es de <span class="math notranslate nohighlight">\(4.61\)</span>, lo que refleja una desviación moderada entre las predicciones y los valores reales.</p>
 </section>
 <section id="gridsearchcv-regresion-lineal">
 <h4><strong>GridSearchCV Regresión lineal</strong><a class="headerlink" href="#gridsearchcv-regresion-lineal" title="Link to this heading">#</a></h4>
+<p>En esta parte se sigue similar al del modelo anterior, pero con la diferencia de que en el modelo <code class="docutils literal notranslate"><span class="pre">LinearRegression()</span></code> no es necesario definir hiperparámetros. Se utiliza el mismo escalador (<code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code>), el mismo esquema de validación cruzada (<code class="docutils literal notranslate"><span class="pre">KFold</span></code>), y la misma métrica de evaluación (<span class="math notranslate nohighlight">\(R^2\)</span>). Luego, se entrena el modelo, se realizan las predicciones sobre el conjunto de prueba, y finalmente se muestran los resultados.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_lr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())])</span>
@@ -866,25 +892,25 @@ RMSE en el conjunto de test para KNN: 4.608433299974619
 <span class="n">r2_lr</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
 <span class="n">rmse_lr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R2 en el conjunto de test para Regresión Lineal:&quot;</span><span class="p">,</span> <span class="n">r2_lr</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RMSE en el conjunto de test para Regresión Lineal:&quot;</span><span class="p">,</span> <span class="n">rmse_lr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RMSE en el conjunto de test para Regresión Lineal:&quot;</span><span class="p">,</span> <span class="n">rmse_lr</span><span class="p">)</span>  <span class="c1"># Se considera mejor el valor más pequeño dado que se trabaja con la desviación</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor score (R2) en entrenamiento:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 0.7424365208494674
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor score (R2) en entrenamiento: 0.7424365208494674
 R2 en el conjunto de test para Regresión Lineal: 0.8054141264996632
 RMSE en el conjunto de test para Regresión Lineal: 3.968132847311861
 </pre></div>
 </div>
 </div>
 </div>
+<p>Los resultados muestran que el modelo de regresión lineal obtuvo un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.74\)</span> en el conjunto de entrenamiento, lo que indica que el modelo explica el 74% de la variabilidad en los datos de entrenamiento. En el conjunto de prueba, el <span class="math notranslate nohighlight">\(R^2\)</span> es de <span class="math notranslate nohighlight">\(0.81\)</span>, lo que sugiere que el modelo funciona incluso mejor en los datos de prueba. El error cuadrático medio (RMSE) en el conjunto de prueba es <span class="math notranslate nohighlight">\(3.97\)</span>, lo que refleja una desviación más baja entre las predicciones y los valores reales en comparación con el modelo K-NN.</p>
 </section>
 </section>
 <section id="gridsearchcv-manual">
 <h3><strong>GridSearchCV Manual</strong><a class="headerlink" href="#gridsearchcv-manual" title="Link to this heading">#</a></h3>
+<p>A continuación se muestra la implementación del método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> de forma manual.</p>
+<p>En esta parte se trabaja de forma similar a los modelos implementados manualmente anteriormente, con la diferencia de que no se utiliza <code class="docutils literal notranslate"><span class="pre">Stratify</span></code> debido a que el conjunto de datos está compuesto por valores continuos y numéricos. Se sigue empleando el método <code class="docutils literal notranslate"><span class="pre">MinMaxScaler()</span></code> para escalar los datos, y se utiliza una métrica adecuada para problemas de regresión, que en este caso es <span class="math notranslate nohighlight">\(R^2\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validacion_cruzada2</span><span class="p">(</span><span class="n">modelo</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">):</span>
@@ -912,6 +938,7 @@ RMSE en el conjunto de test para Regresión Lineal: 3.968132847311861
 </div>
 <section id="gridsearchcv-manual-k-nn-regressor">
 <h4><strong>GridSearchCV manual K-NN Regressor</strong><a class="headerlink" href="#gridsearchcv-manual-k-nn-regressor" title="Link to this heading">#</a></h4>
+<p>Después de ejecutar la función <code class="docutils literal notranslate"><span class="pre">validacion_cruzada2</span></code>, se genera un ciclo en el que se aplica el modelo <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor()</span></code> para cada valor de vecinos. Los resultados de cada modelo se almacenan en una lista llamada <code class="docutils literal notranslate"><span class="pre">scores</span></code>. Luego, se calcula el promedio de todos los <code class="docutils literal notranslate"><span class="pre">scores</span></code> obtenidos para realizar la respectiva comparación, lo que permite identificar el mejor <span class="math notranslate nohighlight">\(R^2\)</span> de la validación cruzada y determinar los mejores parámetros para el modelo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
@@ -938,9 +965,11 @@ Mejor parámetro: 2
 </div>
 </div>
 </div>
+<p>Nótese que los resultados obtenidos de forma manual son los mismos obtenidos anteriormente aplicando el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code>. Estos resultados indican que en efecto el mejor modelo K-NN Regressor utiliza 2 vecinos, obteniendo un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.75\)</span></p>
 </section>
 <section id="gridsearchcv-manual-regresion-lineal">
 <h4><strong>GridSearchCV manual Regresión lineal</strong><a class="headerlink" href="#gridsearchcv-manual-regresion-lineal" title="Link to this heading">#</a></h4>
+<p>En este código se realiza una validación cruzada manual para el modelo de regresión lineal (<code class="docutils literal notranslate"><span class="pre">LinearRegression()</span></code>). Se utiliza la función <code class="docutils literal notranslate"><span class="pre">validacion_cruzada2</span></code> para obtener los puntajes <span class="math notranslate nohighlight">\(R^2\)</span>  de cada pliegue en el conjunto de entrenamiento (<code class="docutils literal notranslate"><span class="pre">X_train</span></code>, <code class="docutils literal notranslate"><span class="pre">y_train</span></code>). Luego, se calcula el promedio de estos puntajes para obtener el mejor <span class="math notranslate nohighlight">\(R^2\)</span> de la validación cruzada.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LR</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
@@ -956,10 +985,12 @@ Mejor parámetro: 2
 </div>
 </div>
 </div>
+<p>El resultado indica que el mejor <span class="math notranslate nohighlight">\(R^2\)</span> obtenido es <span class="math notranslate nohighlight">\(0.74\)</span>, el cual es igual al obtenido anteriormente.</p>
 </section>
 </section>
 <section id="cuadro-2">
 <h3><strong>Cuadro 2</strong><a class="headerlink" href="#cuadro-2" title="Link to this heading">#</a></h3>
+<p>Ahora se realizan predicciones utilizando diferentes métricas, como <code class="docutils literal notranslate"><span class="pre">precision_score</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_absolute_percentage_error</span> <span class="pre">(MAPE)</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_absolute_error</span> <span class="pre">(MAE)</span></code>, <code class="docutils literal notranslate"><span class="pre">mean_squared_error</span> <span class="pre">(MSE)</span></code>, <code class="docutils literal notranslate"><span class="pre">root_mean_squared_error</span> <span class="pre">(RMSE)</span></code> y <code class="docutils literal notranslate"><span class="pre">r2_score</span></code>, para analizar cómo varía el modelo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
@@ -1046,34 +1077,41 @@ Mejor parámetro: 2
 </table>
 </div></div></div>
 </div>
+<p>La tabla compara los modelos K-NN Regressor y Regresión Lineal, mostrando que la Regresión Lineal tiene un mejor rendimiento en todas las métricas evaluadas. Tiene un MAPE, MAE  y un RMSE menor, lo que indica que las predicciones son más precisas. Además, el valor de <span class="math notranslate nohighlight">\(R^2\)</span> es mayor para la Regresión Lineal (<span class="math notranslate nohighlight">\(0.805\)</span>), lo que significa que explica mejor la variabilidad en los datos en comparación con el modelo K-NN Regressor. En conclusión, el modelo de regresión lineal es el mejor para la evaluación de este conjunto de datos.</p>
 </section>
 <section id="graficos">
 <h3><strong>Gráficos</strong><a class="headerlink" href="#graficos" title="Link to this heading">#</a></h3>
+<p>Ahora, se realizan las predicciones tanto para el conjunto de entrenamiento como el conjunto de prueba dependiendo las métricas correspondientes y se gráfica de acuerdo a los resultados</p>
 <section id="grafica-de-resultados-para-knn-regressor">
 <h4><strong>Gráfica de resultados para KNN Regressor</strong><a class="headerlink" href="#grafica-de-resultados-para-knn-regressor" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predicciones</span>
+
 <span class="n">y_train_pred_knn</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="n">y_test_pred_knn</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
 <span class="c1"># Métricas</span>
+
 <span class="n">r2_train_knn</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">)</span>
 <span class="n">r2_test_knn</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_knn</span><span class="p">)</span>
+
 <span class="n">rmse_train_knn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">))</span>
 <span class="n">rmse_test_knn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_knn</span><span class="p">))</span>
 
-<span class="c1"># Crear gráficas</span>
+<span class="c1"># Gráfico</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="c1"># Conjunto de entrenamiento</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Entrenamiento&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;#9A32CD&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">)],</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">)],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_pred_knn</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Entrenamiento&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;#9A32CD&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">)],</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_train</span><span class="p">)],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Precio original&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Precio predicho&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KNN Regressor (Entrenamiento)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2_train_knn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, RMSE: </span><span class="si">{</span><span class="n">rmse_train_knn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
 <span class="c1"># Conjunto de prueba</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_pred_knn</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Test&quot;</span><span class="p">,</span><span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;#6B8E23&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
@@ -1083,15 +1121,15 @@ Mejor parámetro: 2
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KNN Regressor(Prueba)</span><span class="se">\n</span><span class="s2">R²: </span><span class="si">{</span><span class="n">r2_test_knn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, RMSE: </span><span class="si">{</span><span class="n">rmse_test_knn</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/394b13ef0701b1b902b43c2f82c3b2a99fdc9f0378d999dc5677049dc374943e.png" src="_images/394b13ef0701b1b902b43c2f82c3b2a99fdc9f0378d999dc5677049dc374943e.png" />
+<img alt="_images/fc287cddd756f129db6302b0d2362f874cc56118dbf7f21014d0a044ef11825f.png" src="_images/fc287cddd756f129db6302b0d2362f874cc56118dbf7f21014d0a044ef11825f.png" />
 </div>
 </div>
+<p>Las gráficas muestran los resultados del modelo KNN Regressor en los conjuntos de entrenamiento y prueba. En el conjunto de entrenamiento, el modelo presenta un alto desempeño con un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.94\)</span> y un RMSE de <span class="math notranslate nohighlight">\(2.27\)</span>, lo que indica que ajusta bien los datos de entrenamiento. Sin embargo, en el conjunto de prueba, el <span class="math notranslate nohighlight">\(R^2\)</span> baja a <span class="math notranslate nohighlight">\(0.74\)</span> y el RMSE aumenta a <span class="math notranslate nohighlight">\(4.61\)</span>, lo que puede sugerir un sobreajuste. La línea roja indica la predicción perfecta, y se puede observar que las predicciones en el conjunto de prueba están más dispersas en comparación con las del entrenamiento.</p>
 </section>
 <section id="grafica-de-resultados-para-regresion-lineal">
 <h4><strong>Gráfica de resultados para Regresión lineal</strong><a class="headerlink" href="#grafica-de-resultados-para-regresion-lineal" title="Link to this heading">#</a></h4>
@@ -1136,6 +1174,7 @@ Mejor parámetro: 2
 <img alt="_images/ea7ca96f157a7f45b543847199e29813c7528ea6e7d53c8234e1931082573ff6.png" src="_images/ea7ca96f157a7f45b543847199e29813c7528ea6e7d53c8234e1931082573ff6.png" />
 </div>
 </div>
+<p>Las gráficas muestran el rendimiento del modelo de regresión lineal en los conjuntos de entrenamiento y prueba. En el conjunto de entrenamiento, el modelo tiene un <span class="math notranslate nohighlight">\(R^2\)</span> de <span class="math notranslate nohighlight">\(0.94\)</span> y un RMSE de <span class="math notranslate nohighlight">\(2.18\)</span>, lo que indica un buen ajuste en los datos de entrenamiento. En el conjunto de prueba , el <span class="math notranslate nohighlight">\(R^2\)</span> baja a <span class="math notranslate nohighlight">\(0.81\)</span> y el RMSE aumenta a <span class="math notranslate nohighlight">\(3.97\)</span>. Aunque disminuye el coeficiente de determinación, el modelo maneja una buena capacidad predictiva. Las predicciones en ambas gráficas se ajustan bien a la línea roja, aunque las del conjunto de prueba muestran una mayor dispersión. En conclusión, el modelo de regrsión lineal se ajusta mejor a este conjunto de datos, en comparación al modelo <code class="docutils literal notranslate"><span class="pre">KNeighborsRegressor()</span></code>.</p>
 </section>
 </section>
 </section>
@@ -1185,7 +1224,7 @@ Mejor parámetro: 2
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">PRUEBA</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
