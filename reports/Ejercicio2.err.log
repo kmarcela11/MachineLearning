@@ -15,27 +15,72 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import pandas as pd
-import missingno as msno
-import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
-from rdkit import Chem
-from rdkit.Chem import Draw
-from sklearn.feature_selection import SelectKBest, chi2
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder
-from IPython.display import display
+data = pd.read_parquet('train.parquet', engine = 'pyarrow')
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Cell [1;32mIn[1], line 2[0m
-[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpd[39;00m
-[1;32m----> 2[0m [38;5;28;01mimport[39;00m [38;5;21;01mmissingno[39;00m [38;5;28;01mas[39;00m [38;5;21;01mmsno[39;00m
-[0;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mseaborn[39;00m [38;5;28;01mas[39;00m [38;5;21;01msns[39;00m
-[0;32m      4[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[1;31mFileNotFoundError[0m                         Traceback (most recent call last)
+Cell [1;32mIn[2], line 1[0m
+[1;32m----> 1[0m data [38;5;241m=[39m [43mpd[49m[38;5;241;43m.[39;49m[43mread_parquet[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mtrain.parquet[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[43mengine[49m[43m [49m[38;5;241;43m=[39;49m[43m [49m[38;5;124;43m'[39;49m[38;5;124;43mpyarrow[39;49m[38;5;124;43m'[39;49m[43m)[49m
 
-[1;31mModuleNotFoundError[0m: No module named 'missingno'
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\io\parquet.py:667[0m, in [0;36mread_parquet[1;34m(path, engine, columns, storage_options, use_nullable_dtypes, dtype_backend, filesystem, filters, **kwargs)[0m
+[0;32m    664[0m     use_nullable_dtypes [38;5;241m=[39m [38;5;28;01mFalse[39;00m
+[0;32m    665[0m check_dtype_backend(dtype_backend)
+[1;32m--> 667[0m [38;5;28;01mreturn[39;00m impl[38;5;241m.[39mread(
+[0;32m    668[0m     path,
+[0;32m    669[0m     columns[38;5;241m=[39mcolumns,
+[0;32m    670[0m     filters[38;5;241m=[39mfilters,
+[0;32m    671[0m     storage_options[38;5;241m=[39mstorage_options,
+[0;32m    672[0m     use_nullable_dtypes[38;5;241m=[39muse_nullable_dtypes,
+[0;32m    673[0m     dtype_backend[38;5;241m=[39mdtype_backend,
+[0;32m    674[0m     filesystem[38;5;241m=[39mfilesystem,
+[0;32m    675[0m     [38;5;241m*[39m[38;5;241m*[39mkwargs,
+[0;32m    676[0m )
+
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\io\parquet.py:267[0m, in [0;36mPyArrowImpl.read[1;34m(self, path, columns, filters, use_nullable_dtypes, dtype_backend, storage_options, filesystem, **kwargs)[0m
+[0;32m    264[0m [38;5;28;01mif[39;00m manager [38;5;241m==[39m [38;5;124m"[39m[38;5;124marray[39m[38;5;124m"[39m:
+[0;32m    265[0m     to_pandas_kwargs[[38;5;124m"[39m[38;5;124msplit_blocks[39m[38;5;124m"[39m] [38;5;241m=[39m [38;5;28;01mTrue[39;00m  [38;5;66;03m# type: ignore[assignment][39;00m
+[1;32m--> 267[0m path_or_handle, handles, filesystem [38;5;241m=[39m [43m_get_path_or_handle[49m[43m([49m
+[0;32m    268[0m [43m    [49m[43mpath[49m[43m,[49m
+[0;32m    269[0m [43m    [49m[43mfilesystem[49m[43m,[49m
+[0;32m    270[0m [43m    [49m[43mstorage_options[49m[38;5;241;43m=[39;49m[43mstorage_options[49m[43m,[49m
+[0;32m    271[0m [43m    [49m[43mmode[49m[38;5;241;43m=[39;49m[38;5;124;43m"[39;49m[38;5;124;43mrb[39;49m[38;5;124;43m"[39;49m[43m,[49m
+[0;32m    272[0m [43m[49m[43m)[49m
+[0;32m    273[0m [38;5;28;01mtry[39;00m:
+[0;32m    274[0m     pa_table [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mapi[38;5;241m.[39mparquet[38;5;241m.[39mread_table(
+[0;32m    275[0m         path_or_handle,
+[0;32m    276[0m         columns[38;5;241m=[39mcolumns,
+[1;32m   (...)[0m
+[0;32m    279[0m         [38;5;241m*[39m[38;5;241m*[39mkwargs,
+[0;32m    280[0m     )
+
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\io\parquet.py:140[0m, in [0;36m_get_path_or_handle[1;34m(path, fs, storage_options, mode, is_dir)[0m
+[0;32m    130[0m handles [38;5;241m=[39m [38;5;28;01mNone[39;00m
+[0;32m    131[0m [38;5;28;01mif[39;00m (
+[0;32m    132[0m     [38;5;129;01mnot[39;00m fs
+[0;32m    133[0m     [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m is_dir
+[1;32m   (...)[0m
+[0;32m    138[0m     [38;5;66;03m# fsspec resources can also point to directories[39;00m
+[0;32m    139[0m     [38;5;66;03m# this branch is used for example when reading from non-fsspec URLs[39;00m
+[1;32m--> 140[0m     handles [38;5;241m=[39m [43mget_handle[49m[43m([49m
+[0;32m    141[0m [43m        [49m[43mpath_or_handle[49m[43m,[49m[43m [49m[43mmode[49m[43m,[49m[43m [49m[43mis_text[49m[38;5;241;43m=[39;49m[38;5;28;43;01mFalse[39;49;00m[43m,[49m[43m [49m[43mstorage_options[49m[38;5;241;43m=[39;49m[43mstorage_options[49m
+[0;32m    142[0m [43m    [49m[43m)[49m
+[0;32m    143[0m     fs [38;5;241m=[39m [38;5;28;01mNone[39;00m
+[0;32m    144[0m     path_or_handle [38;5;241m=[39m handles[38;5;241m.[39mhandle
+
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\io\common.py:882[0m, in [0;36mget_handle[1;34m(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)[0m
+[0;32m    873[0m         handle [38;5;241m=[39m [38;5;28mopen[39m(
+[0;32m    874[0m             handle,
+[0;32m    875[0m             ioargs[38;5;241m.[39mmode,
+[1;32m   (...)[0m
+[0;32m    878[0m             newline[38;5;241m=[39m[38;5;124m"[39m[38;5;124m"[39m,
+[0;32m    879[0m         )
+[0;32m    880[0m     [38;5;28;01melse[39;00m:
+[0;32m    881[0m         [38;5;66;03m# Binary mode[39;00m
+[1;32m--> 882[0m         handle [38;5;241m=[39m [38;5;28;43mopen[39;49m[43m([49m[43mhandle[49m[43m,[49m[43m [49m[43mioargs[49m[38;5;241;43m.[39;49m[43mmode[49m[43m)[49m
+[0;32m    883[0m     handles[38;5;241m.[39mappend(handle)
+[0;32m    885[0m [38;5;66;03m# Convert BytesIO or file objects passed with an encoding[39;00m
+
+[1;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'train.parquet'
 
