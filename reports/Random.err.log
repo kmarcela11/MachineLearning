@@ -15,26 +15,14 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Visualización de algunas moléculas.
-def moleculas(data, cantidad):
-    data_mol = data.reset_index(drop = True)
-    mols = []
-    for i in range(cantidad):
-        mols += [Chem.MolFromSmiles(data_mol['buildingblock1_smiles'][i]),Chem.MolFromSmiles(data_mol['buildingblock2_smiles'][i]),
-                 Chem.MolFromSmiles(data_mol['buildingblock3_smiles'][i]),Chem.MolFromSmiles(data_mol['molecule_smiles'][i])]
-    return Draw.MolsToGridImage(mols, molsPerRow=4, subImgSize=(400,300))
-
-moleculas(data, 3)
+data_prueba = pd.read_parquet('test.parquet', engine = 'pyarrow')
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mNameError[0m                                 Traceback (most recent call last)
-Cell [1;32mIn[3], line 10[0m
-[0;32m      6[0m         mols [38;5;241m+[39m[38;5;241m=[39m [Chem[38;5;241m.[39mMolFromSmiles(data_mol[[38;5;124m'[39m[38;5;124mbuildingblock1_smiles[39m[38;5;124m'[39m][i]),Chem[38;5;241m.[39mMolFromSmiles(data_mol[[38;5;124m'[39m[38;5;124mbuildingblock2_smiles[39m[38;5;124m'[39m][i]),
-[0;32m      7[0m                  Chem[38;5;241m.[39mMolFromSmiles(data_mol[[38;5;124m'[39m[38;5;124mbuildingblock3_smiles[39m[38;5;124m'[39m][i]),Chem[38;5;241m.[39mMolFromSmiles(data_mol[[38;5;124m'[39m[38;5;124mmolecule_smiles[39m[38;5;124m'[39m][i])]
-[0;32m      8[0m     [38;5;28;01mreturn[39;00m Draw[38;5;241m.[39mMolsToGridImage(mols, molsPerRow[38;5;241m=[39m[38;5;241m4[39m, subImgSize[38;5;241m=[39m([38;5;241m400[39m,[38;5;241m300[39m))
-[1;32m---> 10[0m moleculas([43mdata[49m, [38;5;241m3[39m)
+Cell [1;32mIn[1], line 1[0m
+[1;32m----> 1[0m data_prueba [38;5;241m=[39m [43mpd[49m[38;5;241m.[39mread_parquet([38;5;124m'[39m[38;5;124mtest.parquet[39m[38;5;124m'[39m, engine [38;5;241m=[39m [38;5;124m'[39m[38;5;124mpyarrow[39m[38;5;124m'[39m)
 
-[1;31mNameError[0m: name 'data' is not defined
+[1;31mNameError[0m: name 'pd' is not defined
 
