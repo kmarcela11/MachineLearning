@@ -40,28 +40,60 @@ warnings.filterwarnings("ignore")
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mImportError[0m                               Traceback (most recent call last)
-Cell [1;32mIn[1], line 16[0m
-[0;32m     14[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmetrics[39;00m [38;5;28;01mimport[39;00m mean_absolute_percentage_error, mean_absolute_error, mean_squared_error, r2_score
-[0;32m     15[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
-[1;32m---> 16[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
-[0;32m     17[0m [38;5;28;01mimport[39;00m [38;5;21;01mwarnings[39;00m
-[0;32m     18[0m [38;5;28;01mimport[39;00m [38;5;21;01mmglearn[39;00m
+Cell [1;32mIn[1], line 1[0m
+[1;32m----> 1[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mdatasets[39;00m [38;5;28;01mimport[39;00m load_breast_cancer
+[0;32m      2[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmodel_selection[39;00m [38;5;28;01mimport[39;00m train_test_split
+[0;32m      3[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mneighbors[39;00m [38;5;28;01mimport[39;00m KNeighborsClassifier
 
-File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\matplotlib\__init__.py:263[0m
-[0;32m    258[0m         [38;5;28;01mif[39;00m parse_version(module[38;5;241m.[39m__version__) [38;5;241m<[39m parse_version(minver):
-[0;32m    259[0m             [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mMatplotlib requires [39m[38;5;132;01m{[39;00mmodname[38;5;132;01m}[39;00m[38;5;124m>=[39m[38;5;132;01m{[39;00mminver[38;5;132;01m}[39;00m[38;5;124m; [39m[38;5;124m"[39m
-[0;32m    260[0m                               [38;5;124mf[39m[38;5;124m"[39m[38;5;124myou have [39m[38;5;132;01m{[39;00mmodule[38;5;241m.[39m__version__[38;5;132;01m}[39;00m[38;5;124m"[39m)
-[1;32m--> 263[0m [43m_check_versions[49m[43m([49m[43m)[49m
-[0;32m    266[0m [38;5;66;03m# The decorator ensures this always returns the same handler (and it is only[39;00m
-[0;32m    267[0m [38;5;66;03m# attached once).[39;00m
-[0;32m    268[0m [38;5;129m@functools[39m[38;5;241m.[39mcache
-[0;32m    269[0m [38;5;28;01mdef[39;00m [38;5;21m_ensure_handler[39m():
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\sklearn\__init__.py:83[0m
+[0;32m     69[0m     [38;5;66;03m# We are not importing the rest of scikit-learn during the build[39;00m
+[0;32m     70[0m     [38;5;66;03m# process, as it may not be compiled yet[39;00m
+[0;32m     71[0m [38;5;28;01melse[39;00m:
+[1;32m   (...)[0m
+[0;32m     77[0m     [38;5;66;03m# later is linked to the OpenMP runtime to make it possible to introspect[39;00m
+[0;32m     78[0m     [38;5;66;03m# it and importing it first would fail if the OpenMP dll cannot be found.[39;00m
+[0;32m     79[0m     [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m [38;5;28;01mimport[39;00m (
+[0;32m     80[0m         __check_build,  [38;5;66;03m# noqa: F401[39;00m
+[0;32m     81[0m         _distributor_init,  [38;5;66;03m# noqa: F401[39;00m
+[0;32m     82[0m     )
+[1;32m---> 83[0m     [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mbase[39;00m [38;5;28;01mimport[39;00m clone
+[0;32m     84[0m     [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mutils[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_show_versions[39;00m [38;5;28;01mimport[39;00m show_versions
+[0;32m     86[0m     __all__ [38;5;241m=[39m [
+[0;32m     87[0m         [38;5;124m"[39m[38;5;124mcalibration[39m[38;5;124m"[39m,
+[0;32m     88[0m         [38;5;124m"[39m[38;5;124mcluster[39m[38;5;124m"[39m,
+[1;32m   (...)[0m
+[0;32m    129[0m         [38;5;124m"[39m[38;5;124mshow_versions[39m[38;5;124m"[39m,
+[0;32m    130[0m     ]
 
-File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\matplotlib\__init__.py:259[0m, in [0;36m_check_versions[1;34m()[0m
-[0;32m    257[0m module [38;5;241m=[39m importlib[38;5;241m.[39mimport_module(modname)
-[0;32m    258[0m [38;5;28;01mif[39;00m parse_version(module[38;5;241m.[39m__version__) [38;5;241m<[39m parse_version(minver):
-[1;32m--> 259[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mMatplotlib requires [39m[38;5;132;01m{[39;00mmodname[38;5;132;01m}[39;00m[38;5;124m>=[39m[38;5;132;01m{[39;00mminver[38;5;132;01m}[39;00m[38;5;124m; [39m[38;5;124m"[39m
-[0;32m    260[0m                       [38;5;124mf[39m[38;5;124m"[39m[38;5;124myou have [39m[38;5;132;01m{[39;00mmodule[38;5;241m.[39m__version__[38;5;132;01m}[39;00m[38;5;124m"[39m)
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\sklearn\base.py:19[0m
+[0;32m     17[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01m_config[39;00m [38;5;28;01mimport[39;00m config_context, get_config
+[0;32m     18[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mexceptions[39;00m [38;5;28;01mimport[39;00m InconsistentVersionWarning
+[1;32m---> 19[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mutils[39;00m [38;5;28;01mimport[39;00m _IS_32BIT
+[0;32m     20[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mutils[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_estimator_html_repr[39;00m [38;5;28;01mimport[39;00m estimator_html_repr
+[0;32m     21[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mutils[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_metadata_requests[39;00m [38;5;28;01mimport[39;00m _MetadataRequester
 
-[1;31mImportError[0m: Matplotlib requires numpy>=1.23; you have 1.22.4
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\sklearn\utils\__init__.py:22[0m
+[0;32m     20[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01m_bunch[39;00m [38;5;28;01mimport[39;00m Bunch
+[0;32m     21[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01m_estimator_html_repr[39;00m [38;5;28;01mimport[39;00m estimator_html_repr
+[1;32m---> 22[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01m_param_validation[39;00m [38;5;28;01mimport[39;00m Interval, validate_params
+[0;32m     23[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mclass_weight[39;00m [38;5;28;01mimport[39;00m compute_class_weight, compute_sample_weight
+[0;32m     24[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mdeprecation[39;00m [38;5;28;01mimport[39;00m deprecated
+
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\sklearn\utils\_param_validation.py:15[0m
+[0;32m     12[0m [38;5;28;01mfrom[39;00m [38;5;21;01mscipy[39;00m[38;5;21;01m.[39;00m[38;5;21;01msparse[39;00m [38;5;28;01mimport[39;00m csr_matrix, issparse
+[0;32m     14[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_config[39;00m [38;5;28;01mimport[39;00m config_context, get_config
+[1;32m---> 15[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mvalidation[39;00m [38;5;28;01mimport[39;00m _is_arraylike_not_scalar
+[0;32m     18[0m [38;5;28;01mclass[39;00m [38;5;21;01mInvalidParameterError[39;00m([38;5;167;01mValueError[39;00m, [38;5;167;01mTypeError[39;00m):
+[0;32m     19[0m [38;5;250m    [39m[38;5;124;03m"""Custom exception to be raised when the parameter of a class/method/function[39;00m
+[0;32m     20[0m [38;5;124;03m    does not have a valid type or value.[39;00m
+[0;32m     21[0m [38;5;124;03m    """[39;00m
+
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\sklearn\utils\validation.py:24[0m
+[0;32m     21[0m [38;5;28;01mimport[39;00m [38;5;21;01mscipy[39;00m[38;5;21;01m.[39;00m[38;5;21;01msparse[39;00m [38;5;28;01mas[39;00m [38;5;21;01msp[39;00m
+[0;32m     23[0m [38;5;66;03m# mypy error: Module 'numpy.core.numeric' has no attribute 'ComplexWarning'[39;00m
+[1;32m---> 24[0m [38;5;28;01mfrom[39;00m [38;5;21;01mnumpy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcore[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnumeric[39;00m [38;5;28;01mimport[39;00m ComplexWarning  [38;5;66;03m# type: ignore[39;00m
+[0;32m     26[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01m.[39;00m [38;5;28;01mimport[39;00m get_config [38;5;28;01mas[39;00m _get_config
+[0;32m     27[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01m.[39;00m[38;5;21;01mexceptions[39;00m [38;5;28;01mimport[39;00m DataConversionWarning, NotFittedError, PositiveSpectrumWarning
+
+[1;31mImportError[0m: cannot import name 'ComplexWarning' from 'numpy.core.numeric' (C:\Users\kamac\miniconda3\envs\ml_venv\lib\site-packages\numpy\core\numeric.py)
 
