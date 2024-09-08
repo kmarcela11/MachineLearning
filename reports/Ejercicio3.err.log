@@ -34,45 +34,41 @@ from sklearn.metrics import roc_curve, roc_auc_score
 
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mAttributeError[0m                            Traceback (most recent call last)
-Cell [1;32mIn[1], line 1[0m
-[1;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpd[39;00m
-[0;32m      2[0m [38;5;28;01mimport[39;00m [38;5;21;01mseaborn[39;00m [38;5;28;01mas[39;00m [38;5;21;01msns[39;00m
+[1;31mImportError[0m                               Traceback (most recent call last)
+Cell [1;32mIn[1], line 2[0m
+[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpd[39;00m
+[1;32m----> 2[0m [38;5;28;01mimport[39;00m [38;5;21;01mseaborn[39;00m [38;5;28;01mas[39;00m [38;5;21;01msns[39;00m
 [0;32m      3[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[0;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpipeline[39;00m [38;5;28;01mimport[39;00m Pipeline
 
-File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\__init__.py:26[0m
-[0;32m     22[0m [38;5;28;01mdel[39;00m _hard_dependencies, _dependency, _missing_dependencies
-[0;32m     24[0m [38;5;28;01mtry[39;00m:
-[0;32m     25[0m     [38;5;66;03m# numpy compat[39;00m
-[1;32m---> 26[0m     [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcompat[39;00m [38;5;28;01mimport[39;00m (
-[0;32m     27[0m         is_numpy_dev [38;5;28;01mas[39;00m _is_numpy_dev,  [38;5;66;03m# pyright: ignore[reportUnusedImport] # noqa: F401[39;00m
-[0;32m     28[0m     )
-[0;32m     29[0m [38;5;28;01mexcept[39;00m [38;5;167;01mImportError[39;00m [38;5;28;01mas[39;00m _err:  [38;5;66;03m# pragma: no cover[39;00m
-[0;32m     30[0m     _module [38;5;241m=[39m _err[38;5;241m.[39mname
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\seaborn\__init__.py:2[0m
+[0;32m      1[0m [38;5;66;03m# Import seaborn objects[39;00m
+[1;32m----> 2[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mrcmod[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m  [38;5;66;03m# noqa: F401,F403[39;00m
+[0;32m      3[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mutils[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m  [38;5;66;03m# noqa: F401,F403[39;00m
+[0;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m[38;5;21;01mpalettes[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m  [38;5;66;03m# noqa: F401,F403[39;00m
 
-File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\compat\__init__.py:26[0m
-[0;32m     17[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcompat[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_constants[39;00m [38;5;28;01mimport[39;00m (
-[0;32m     18[0m     IS64,
-[0;32m     19[0m     ISMUSL,
-[1;32m   (...)[0m
-[0;32m     23[0m     PYPY,
-[0;32m     24[0m )
-[0;32m     25[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcompat[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcompressors[39;00m
-[1;32m---> 26[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcompat[39;00m[38;5;21;01m.[39;00m[38;5;21;01mnumpy[39;00m [38;5;28;01mimport[39;00m is_numpy_dev
-[0;32m     27[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcompat[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyarrow[39;00m [38;5;28;01mimport[39;00m (
-[0;32m     28[0m     pa_version_under10p1,
-[0;32m     29[0m     pa_version_under11p0,
-[1;32m   (...)[0m
-[0;32m     33[0m     pa_version_under16p0,
-[0;32m     34[0m )
-[0;32m     36[0m [38;5;28;01mif[39;00m TYPE_CHECKING:
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\seaborn\rcmod.py:3[0m
+[0;32m      1[0m [38;5;124;03m"""Control plot style and scaling using the matplotlib rcParams interface."""[39;00m
+[0;32m      2[0m [38;5;28;01mimport[39;00m [38;5;21;01mfunctools[39;00m
+[1;32m----> 3[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m [38;5;28;01mas[39;00m [38;5;21;01mmpl[39;00m
+[0;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mcycler[39;00m [38;5;28;01mimport[39;00m cycler
+[0;32m      5[0m [38;5;28;01mfrom[39;00m [38;5;21;01m.[39;00m [38;5;28;01mimport[39;00m palettes
 
-File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\pandas\compat\numpy\__init__.py:9[0m
-[0;32m      6[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mutil[39;00m[38;5;21;01m.[39;00m[38;5;21;01mversion[39;00m [38;5;28;01mimport[39;00m Version
-[0;32m      8[0m [38;5;66;03m# numpy versioning[39;00m
-[1;32m----> 9[0m _np_version [38;5;241m=[39m [43mnp[49m[38;5;241;43m.[39;49m[43m__version__[49m
-[0;32m     10[0m _nlv [38;5;241m=[39m Version(_np_version)
-[0;32m     11[0m np_version_lt1p23 [38;5;241m=[39m _nlv [38;5;241m<[39m Version([38;5;124m"[39m[38;5;124m1.23[39m[38;5;124m"[39m)
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\matplotlib\__init__.py:263[0m
+[0;32m    258[0m         [38;5;28;01mif[39;00m parse_version(module[38;5;241m.[39m__version__) [38;5;241m<[39m parse_version(minver):
+[0;32m    259[0m             [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mMatplotlib requires [39m[38;5;132;01m{[39;00mmodname[38;5;132;01m}[39;00m[38;5;124m>=[39m[38;5;132;01m{[39;00mminver[38;5;132;01m}[39;00m[38;5;124m; [39m[38;5;124m"[39m
+[0;32m    260[0m                               [38;5;124mf[39m[38;5;124m"[39m[38;5;124myou have [39m[38;5;132;01m{[39;00mmodule[38;5;241m.[39m__version__[38;5;132;01m}[39;00m[38;5;124m"[39m)
+[1;32m--> 263[0m [43m_check_versions[49m[43m([49m[43m)[49m
+[0;32m    266[0m [38;5;66;03m# The decorator ensures this always returns the same handler (and it is only[39;00m
+[0;32m    267[0m [38;5;66;03m# attached once).[39;00m
+[0;32m    268[0m [38;5;129m@functools[39m[38;5;241m.[39mcache
+[0;32m    269[0m [38;5;28;01mdef[39;00m [38;5;21m_ensure_handler[39m():
 
-[1;31mAttributeError[0m: module 'numpy' has no attribute '__version__'
+File [1;32m~\miniconda3\envs\ml_venv\lib\site-packages\matplotlib\__init__.py:259[0m, in [0;36m_check_versions[1;34m()[0m
+[0;32m    257[0m module [38;5;241m=[39m importlib[38;5;241m.[39mimport_module(modname)
+[0;32m    258[0m [38;5;28;01mif[39;00m parse_version(module[38;5;241m.[39m__version__) [38;5;241m<[39m parse_version(minver):
+[1;32m--> 259[0m     [38;5;28;01mraise[39;00m [38;5;167;01mImportError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mMatplotlib requires [39m[38;5;132;01m{[39;00mmodname[38;5;132;01m}[39;00m[38;5;124m>=[39m[38;5;132;01m{[39;00mminver[38;5;132;01m}[39;00m[38;5;124m; [39m[38;5;124m"[39m
+[0;32m    260[0m                       [38;5;124mf[39m[38;5;124m"[39m[38;5;124myou have [39m[38;5;132;01m{[39;00mmodule[38;5;241m.[39m__version__[38;5;132;01m}[39;00m[38;5;124m"[39m)
+
+[1;31mImportError[0m: Matplotlib requires numpy>=1.23; you have 1.22.4
 
