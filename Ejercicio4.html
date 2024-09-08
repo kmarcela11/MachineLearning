@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Ejercicio4';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -390,7 +392,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos"><strong>Datos</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-knn-regressor"><strong>MODELO KNN Regressor</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-regresion-lineal"><strong>Modelo de regresión lineal</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuadro-2"><strong>Cuadro 2</strong></a></li>
 </ul>
@@ -466,6 +467,70 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">sklearn</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">83</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span>     <span class="c1"># We are not importing the rest of scikit-learn during the build</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>     <span class="c1"># process, as it may not be compiled yet</span>
+<span class="g g-Whitespace">     </span><span class="mi">71</span> <span class="k">else</span><span class="p">:</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span>     <span class="c1"># later is linked to the OpenMP runtime to make it possible to introspect</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span>     <span class="c1"># it and importing it first would fail if the OpenMP dll cannot be found.</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>     <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>         <span class="n">__check_build</span><span class="p">,</span>  <span class="c1"># noqa: F401</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>         <span class="n">_distributor_init</span><span class="p">,</span>  <span class="c1"># noqa: F401</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>     <span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">83</span>     <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">clone</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="kn">from</span> <span class="nn">.utils._show_versions</span> <span class="kn">import</span> <span class="n">show_versions</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span>         <span class="s2">&quot;calibration&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span>         <span class="s2">&quot;cluster&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span>         <span class="s2">&quot;show_versions&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span>     <span class="p">]</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">sklearn</span>\<span class="n">base</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">19</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">._config</span> <span class="kn">import</span> <span class="n">config_context</span><span class="p">,</span> <span class="n">get_config</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">InconsistentVersionWarning</span>
+<span class="ne">---&gt; </span><span class="mi">19</span> <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">_IS_32BIT</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">.utils._estimator_html_repr</span> <span class="kn">import</span> <span class="n">estimator_html_repr</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">.utils._metadata_requests</span> <span class="kn">import</span> <span class="n">_MetadataRequester</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">sklearn</span>\<span class="n">utils</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">22</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="kn">from</span> <span class="nn">._bunch</span> <span class="kn">import</span> <span class="n">Bunch</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="kn">from</span> <span class="nn">._estimator_html_repr</span> <span class="kn">import</span> <span class="n">estimator_html_repr</span>
+<span class="ne">---&gt; </span><span class="mi">22</span> <span class="kn">from</span> <span class="nn">._param_validation</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">validate_params</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="kn">from</span> <span class="nn">.class_weight</span> <span class="kn">import</span> <span class="n">compute_class_weight</span><span class="p">,</span> <span class="n">compute_sample_weight</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="kn">from</span> <span class="nn">.deprecation</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">sklearn</span>\<span class="n">utils</span>\<span class="n">_param_validation</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">15</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">csr_matrix</span><span class="p">,</span> <span class="n">issparse</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="kn">from</span> <span class="nn">.._config</span> <span class="kn">import</span> <span class="n">config_context</span><span class="p">,</span> <span class="n">get_config</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="kn">from</span> <span class="nn">.validation</span> <span class="kn">import</span> <span class="n">_is_arraylike_not_scalar</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="k">class</span> <span class="nc">InvalidParameterError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Custom exception to be raised when the parameter of a class/method/function</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span><span class="sd">     does not have a valid type or value.</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span><span class="sd">     &quot;&quot;&quot;</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">sklearn</span>\<span class="n">utils</span>\<span class="n">validation</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">24</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="c1"># mypy error: Module &#39;numpy.core.numeric&#39; has no attribute &#39;ComplexWarning&#39;</span>
+<span class="ne">---&gt; </span><span class="mi">24</span> <span class="kn">from</span> <span class="nn">numpy.core.numeric</span> <span class="kn">import</span> <span class="n">ComplexWarning</span>  <span class="c1"># type: ignore</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">get_config</span> <span class="k">as</span> <span class="n">_get_config</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">DataConversionWarning</span><span class="p">,</span> <span class="n">NotFittedError</span><span class="p">,</span> <span class="n">PositiveSpectrumWarning</span>
+
+<span class="ne">ImportError</span>: cannot import name &#39;ComplexWarning&#39; from &#39;numpy.core.numeric&#39; (C:\Users\kamac\miniconda3\envs\ml_venv\lib\site-packages\numpy\core\numeric.py)
+</pre></div>
+</div>
+</div>
 </div>
 <section id="metrica-asignada">
 <h3><strong>Métrica asignada</strong><a class="headerlink" href="#metrica-asignada" title="Link to this heading">#</a></h3>
@@ -499,7 +564,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
+<div class="output text_html">
+  <div id="df-ed3e00ea-d99b-4318-a576-ad1c683992a0" class="colab-df-container">
+    <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -808,7 +875,272 @@ document.write(`
   </tbody>
 </table>
 <p>614 rows × 18363 columns</p>
-</div></div></div>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-ed3e00ea-d99b-4318-a576-ad1c683992a0')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-ed3e00ea-d99b-4318-a576-ad1c683992a0 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-ed3e00ea-d99b-4318-a576-ad1c683992a0');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-36792cb6-7ec1-4c32-8864-95d8e683d933">
+  <button class="colab-df-quickchart" onclick="quickchart('df-36792cb6-7ec1-4c32-8864-95d8e683d933')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-36792cb6-7ec1-4c32-8864-95d8e683d933 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+  <div id="id_2c837025-8b62-4ecd-ab61-bdeebd893d65">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('de_train_final')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_2c837025-8b62-4ecd-ab61-bdeebd893d65 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('de_train_final');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
 </div>
 <p>Nótese que la base de datos actual cuenta con <strong>614</strong> observaciones y <strong>18363</strong> columnas</p>
 <p>Ahora, se divide el DataFrame <code class="docutils literal notranslate"><span class="pre">de_train_final</span></code> en dos partes: las variables predictoras (almacenadas en <code class="docutils literal notranslate"><span class="pre">x</span></code>) y las variables objetivo (almacenadas en <code class="docutils literal notranslate"><span class="pre">y</span></code>). Específicamente, las primeras 152 columnas de la base de datos se asignan a <code class="docutils literal notranslate"><span class="pre">x</span></code>, que representará los predictores o características, mientras que las columnas a partir de la posición 152 en adelante se asignan a <code class="docutils literal notranslate"><span class="pre">y</span></code>, que representan las respuestas o la variable objetivo.</p>
@@ -827,7 +1159,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
+<div class="output text_html">
+  <div id="df-49e065cf-8f66-404f-b332-6334700673bc" class="colab-df-container">
+    <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1136,7 +1470,272 @@ document.write(`
   </tbody>
 </table>
 <p>614 rows × 152 columns</p>
-</div></div></div>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-49e065cf-8f66-404f-b332-6334700673bc')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-49e065cf-8f66-404f-b332-6334700673bc button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-49e065cf-8f66-404f-b332-6334700673bc');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-55fc4852-8186-4721-8cf1-d769dfb74d84">
+  <button class="colab-df-quickchart" onclick="quickchart('df-55fc4852-8186-4721-8cf1-d769dfb74d84')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-55fc4852-8186-4721-8cf1-d769dfb74d84 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+  <div id="id_bdea15d7-9f84-4b57-b7e8-5e58ab859dea">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('X')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_bdea15d7-9f84-4b57-b7e8-5e58ab859dea button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('X');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1145,7 +1744,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
+<div class="output text_html">
+  <div id="df-2a3d930c-ef92-468f-8200-dd9fd9e421d4" class="colab-df-container">
+    <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1454,7 +2055,272 @@ document.write(`
   </tbody>
 </table>
 <p>614 rows × 18211 columns</p>
-</div></div></div>
+</div>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-2a3d930c-ef92-468f-8200-dd9fd9e421d4')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-2a3d930c-ef92-468f-8200-dd9fd9e421d4 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-2a3d930c-ef92-468f-8200-dd9fd9e421d4');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-2863368b-4e15-45c5-a9be-3b6804ef5d9f">
+  <button class="colab-df-quickchart" onclick="quickchart('df-2863368b-4e15-45c5-a9be-3b6804ef5d9f')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-2863368b-4e15-45c5-a9be-3b6804ef5d9f button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+  <div id="id_52b24c34-142d-46eb-8c9b-9a67797b206b">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('y')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_52b24c34-142d-46eb-8c9b-9a67797b206b button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('y');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
 </div>
 <p>Antes de aplicar los modelos se divide el conjunto de datos en dos partes: entrenamiento y prueba. Con la función <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code>, las variables <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> se dividen en <code class="docutils literal notranslate"><span class="pre">X_train</span></code> y <code class="docutils literal notranslate"><span class="pre">X_test</span></code> (para las características) y en <code class="docutils literal notranslate"><span class="pre">y_train</span></code> y <code class="docutils literal notranslate"><span class="pre">y_test</span></code> (para la variable objetivo). Además, se está crea un “scoring” personalizado utilizando la función make_scorer, con la métrica MRRMSE (definida anteriormente), donde greater_is_better=False indica que se considera mejor un valor más bajo para la métrica, es decir, cuanto menor sea el error, mejor será el modelo.</p>
 <div class="cell docutils container">
@@ -1465,80 +2331,59 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="modelo-knn-regressor">
-<h3><strong>MODELO KNN Regressor</strong><a class="headerlink" href="#modelo-knn-regressor" title="Link to this heading">#</a></h3>
 <p>En este código, se entrena un modelo <strong>KNN Regressor</strong> usando un <strong>pipeline</strong> con estandarización (<code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code>). Se realiza una búsqueda de hiperparámetros con <strong>GridSearchCV</strong> utilizando un conjunto de parámetros que incluyen el número de vecinos (<code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>), la métrica de distancia (<code class="docutils literal notranslate"><span class="pre">metric</span></code>), el método de ponderación (<code class="docutils literal notranslate"><span class="pre">weights</span></code>), y el parámetro <code class="docutils literal notranslate"><span class="pre">p</span></code> para la métrica Minkowski. Se utiliza <strong>KFold</strong> con 10 divisiones y se evalúa el modelo mediante la métrica <strong>MRRMSE</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_kr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),(</span><span class="s1">&#39;knr&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">())])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
 
-<span class="n">param_grid_kr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;knr__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-                 <span class="s1">&#39;knr__metric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span><span class="s1">&#39;minkowski&#39;</span><span class="p">,</span> <span class="s1">&#39;manhattan&#39;</span><span class="p">],</span>
-                 <span class="s1">&#39;knr__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">],</span>
-                 <span class="s1">&#39;knr__p&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
+<span class="n">pipeline_kr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),(</span><span class="s1">&#39;knr&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">())])</span>
 
-<span class="n">kfo</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">kfo</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
 
-<span class="n">grid_knr</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_kr</span><span class="p">,</span> <span class="n">param_grid_kr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kfo</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="n">scoring</span><span class="p">)</span>
-<span class="n">grid_knr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-<span class="n">y_pred_knr</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">mrrmse_knn</span> <span class="o">=</span> <span class="n">MRRMSE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knr</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejores parámetros: </span><span class="si">{</span><span class="n">grid_knr</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de entrenamiento: </span><span class="si">{</span><span class="n">grid_knr</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de prueba: </span><span class="si">{</span><span class="n">mrrmse_knn</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">param_grid_kr</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;knr__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)),</span>
+    <span class="s1">&#39;knr__metric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;minkowski&#39;</span><span class="p">,</span> <span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="s1">&#39;manhattan&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;knr__p&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s1">&#39;knr__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_knr</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_kr</span><span class="p">,</span> <span class="n">param_grid_kr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kfo</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="n">scoring</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">grid_knr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
-<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
-    <span class="p">(</span><span class="s1">&#39;knn&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">())</span>
-<span class="p">])</span>
+<span class="n">modelo</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">best_estimator_</span>
 
-<span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;knn__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)),</span>
-    <span class="s1">&#39;knn__metric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;minkowski&#39;</span><span class="p">,</span> <span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="s1">&#39;manhattan&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;knn__p&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-    <span class="s1">&#39;knn__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]</span>
-<span class="p">}</span>
-
-<span class="n">mrrmse_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">MRRMSE</span><span class="p">,</span> <span class="n">greater_is_better</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="n">gs_knn</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
-<span class="n">gs_knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-<span class="n">mejor_modelo</span> <span class="o">=</span> <span class="n">gs_knn</span><span class="o">.</span><span class="n">best_estimator_</span>
-
-<span class="n">y_pred_train</span> <span class="o">=</span> <span class="n">mejor_modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-<span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">mejor_modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-
+<span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">mrrmse_test</span> <span class="o">=</span> <span class="n">MRRMSE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
 
-<span class="n">trains</span> <span class="o">=</span> <span class="n">mejor_modelo</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">tests</span> <span class="o">=</span> <span class="n">mejor_modelo</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejores parámetros: </span><span class="si">{</span><span class="n">gs_knn</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de entrenamiento: </span><span class="si">{</span><span class="n">gs_knn</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejores parámetros: </span><span class="si">{</span><span class="n">grid_knr</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de entrenamiento: </span><span class="si">{</span><span class="n">grid_knr</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de prueba: </span><span class="si">{</span><span class="n">mrrmse_test</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 10 folds for each of 1791 candidates, totalling 17910 fits
+Mejores parámetros: {&#39;knr__metric&#39;: &#39;minkowski&#39;, &#39;knr__n_neighbors&#39;: 125, &#39;knr__p&#39;: 3, &#39;knr__weights&#39;: &#39;distance&#39;}
+MRRMSE en el conjunto de entrenamiento: -1.2264458068125894
+MRRMSE en el conjunto de prueba: 1.470800131934799
+</pre></div>
 </div>
-</section>
+</div>
+</div>
+<p>Los resultados muestran que el modelo de KNN- Regressor, con sus mejores parámetros encontrados (métrica Minkowski, 125 vecinos y pesos por distancia), tiene un desempeño deficiente, especialmente en el conjunto de entrenamiento, donde el MRRMSE es negativo (-1.22), lo que sugiere sobreajuste o problemas con los datos. En el conjunto de prueba, el MRRMSE es 1.47, lo que indica que el modelo sigue teniendo dificultades para predecir con precisión, aunque con un mejor desempeño en comparación con el entrenamiento. Esto refleja que el modelo no está generalizando bien a los nuevos datos.</p>
 <section id="modelo-de-regresion-lineal">
 <h3><strong>Modelo de regresión lineal</strong><a class="headerlink" href="#modelo-de-regresion-lineal" title="Link to this heading">#</a></h3>
-<p>Se entrena un modelo de <strong>regresión lineal</strong> utilizando un <strong>pipeline</strong> que incluye la estandarización de los datos con <code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code>.</p>
+<p>Se entrena un modelo de <strong>regresión lineal</strong> utilizando un <strong>pipeline</strong> que incluye la estandarización de los datos con <code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code>. No se definen hiperparámetros, ya que la regresión lineal no tiene parámetros ajustables y se evalúa con la métrica <strong>MRRMSE</strong>. .</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_lr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+
+<span class="n">pipeline_lr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())])</span>
 
 <span class="n">pipeline_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
@@ -1555,42 +2400,42 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MRRMSE en el conjunto de entrenamiento: 1.0340113450250037
-MRRMSE en el conjunto de prueba: 1.3655802559553298
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MRRMSE en el conjunto de entrenamiento: 0.9867218722252062
+MRRMSE en el conjunto de prueba: 1.5387031905624788
 </pre></div>
 </div>
 </div>
 </div>
+<p>Los resultados muestran que el MRRMSE en el conjunto de entrenamiento es de 0.98, lo que indica un buen ajuste. Sin embargo, el MRRMSE en el conjunto de prueba es mayor (1.53), lo que sugiere que el modelo tiene un peor rendimiento al predecir datos nuevos. Esto podría ser indicativo de sobreajuste, ya que el modelo se ajusta bien al conjunto de entrenamiento, pero no generaliza tan bien en el conjunto de prueba.</p>
 </section>
 <section id="cuadro-2">
 <h3><strong>Cuadro 2</strong><a class="headerlink" href="#cuadro-2" title="Link to this heading">#</a></h3>
 <p>Finalmente se realizan predicciones con los modelos <strong>K-NN</strong> y <strong>regresión lineal</strong>, luego se evalúan usando diversas métricas de error, como <strong>MAPE</strong> (Error absoluto medio en porcentaje), <strong>MAE</strong> (Error absoluto medio), <strong>RMSE</strong> (Raíz cuadrada del error cuadrático medio), <strong>MSE</strong> (Error cuadrático medio), y <strong>R2</strong> (Coeficiente de determinación).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
-<span class="n">knr_predict</span><span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">knr_predict</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">lr_predict</span> <span class="o">=</span> <span class="n">pipeline_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
-<span class="c1"># Evalua las predicciones en cada métrica con las etiquetas del test</span>
 <span class="n">tabla2</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;K-NN&#39;</span><span class="p">,</span> <span class="s1">&#39;Regresión lineal&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;MAPE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error absoluto medio en porcentaje</span>
+    <span class="s1">&#39;MAPE&#39;</span><span class="p">:</span> <span class="p">[</span>  <span class="c1"># Error absoluto medio en porcentaje</span>
         <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
         <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
     <span class="p">],</span>
-    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error absoluto medio</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="p">[</span>  <span class="c1"># Error absoluto medio</span>
         <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
         <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
     <span class="p">],</span>
-    <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Raíz cuadrada del error cuadrático medio</span>
+    <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">[</span>  <span class="c1"># Raíz cuadrada del error cuadrático medio</span>
         <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">)),</span>
         <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">))</span>
     <span class="p">],</span>
-    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error cuadrático medio</span>
-        <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span> 
-        <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>  
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="p">[</span>  <span class="c1"># Error cuadrático medio</span>
+        <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
+        <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
     <span class="p">],</span>
-    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Coeficiente de determinación</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="p">[</span>  <span class="c1"># Coeficiente de determinación</span>
         <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
         <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
     <span class="p">]</span>
@@ -1601,8 +2446,324 @@ MRRMSE en el conjunto de prueba: 1.3655802559553298
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-6a7b730e-c9bb-4fd0-b7d1-34afd87def8c" class="colab-df-container">
+    <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>MAPE</th>
+      <th>MAE</th>
+      <th>RMSE</th>
+      <th>MSE</th>
+      <th>R2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>K-NN</td>
+      <td>1.060034</td>
+      <td>0.150213</td>
+      <td>1.006208</td>
+      <td>1.012454</td>
+      <td>0.791933</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Regresión lineal</td>
+      <td>16.845013</td>
+      <td>0.735129</td>
+      <td>1.656074</td>
+      <td>2.742582</td>
+      <td>0.200860</td>
+    </tr>
+  </tbody>
+</table>
 </div>
-<p>Al revisar las métricas especificadas en la tabla, MAPE, MAE, MSE y RMSE, métricas asociadas al error, son menores en el modelo K-NN, indicando un mejor ajueste en este. Además, el modelo K-NN también presenta un coeficiente de determinación mayor: 76,95%, es decir, explica alrededor del 77% de la variabilidad en la expresión diferencial de los distintos genes. En cambio, el modelo de regresión lineal presenta errores mayores y solo esplixa el 20% de la variabilidad de los datos.</p>
+    <div class="colab-df-buttons">
+
+  <div class="colab-df-container">
+    <button class="colab-df-convert" onclick="convertToInteractive('df-6a7b730e-c9bb-4fd0-b7d1-34afd87def8c')"
+            title="Convert this dataframe to an interactive table."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
+    <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"/>
+  </svg>
+    </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+    <script>
+      const buttonEl =
+        document.querySelector('#df-6a7b730e-c9bb-4fd0-b7d1-34afd87def8c button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-6a7b730e-c9bb-4fd0-b7d1-34afd87def8c');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+  </div>
+
+
+<div id="df-d4170d97-5396-4924-b009-dcc1bffd10a9">
+  <button class="colab-df-quickchart" onclick="quickchart('df-d4170d97-5396-4924-b009-dcc1bffd10a9')"
+            title="Suggest charts"
+            style="display:none;">
+
+<svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+     width="24px">
+    <g>
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </g>
+</svg>
+  </button>
+
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+
+  <script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-d4170d97-5396-4924-b009-dcc1bffd10a9 button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+
+  <div id="id_65067420-8300-4185-b390-f711f5adcebc">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('cuadro2')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_65067420-8300-4185-b390-f711f5adcebc button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('cuadro2');
+      }
+      })();
+    </script>
+  </div>
+
+    </div>
+  </div>
+</div></div>
+</div>
+<p>En la tabla de métricas, el coeficiente de determinación <span class="math notranslate nohighlight">\(R^2\)</span> mide qué tan bien el modelo explica la variabilidad de los datos. Un valor de  <span class="math notranslate nohighlight">\(R^2\)</span> cercano a 1 indica un buen ajuste del modelo. En este caso, el modelo K-NN tiene un <span class="math notranslate nohighlight">\(R^2\)</span> de 0.79, lo que significa que el 79% de la variabilidad de los datos es explicada por el modelo, lo cual es un buen resultado. Por otro lado, la regresión lineal tiene un <span class="math notranslate nohighlight">\(R^2\)</span>  de 0.20, lo que indica que solo el 20% de la variabilidad en los datos se explica por este modelo, lo que sugiere un ajuste mucho peor en comparación con K-NN.</p>
 </section>
 </section>
 </section>
@@ -1670,7 +2831,6 @@ MRRMSE en el conjunto de prueba: 1.3655802559553298
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos"><strong>Datos</strong></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-knn-regressor"><strong>MODELO KNN Regressor</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-regresion-lineal"><strong>Modelo de regresión lineal</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuadro-2"><strong>Cuadro 2</strong></a></li>
 </ul>
