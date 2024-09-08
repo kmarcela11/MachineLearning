@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Ejercicio 3: Predict New Medicines with BELKA &#8212; Machine Learning</title>
+    <title>Ejercicio 3 &#8212; Machine Learning</title>
   
   
   
@@ -184,10 +184,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio2.html"><strong>Ejercicio 2</strong></a></li>
 
 
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Ejercicio 3</strong></a></li>
 
-
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Ejercicio 3</strong>: Predict New Medicines with BELKA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio4.html"><strong>Ejercicio 4</strong></a></li>
+
 </ul>
 
     </div>
@@ -373,7 +373,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Ejercicio 3: Predict New Medicines with BELKA</h1>
+    <h1>Ejercicio 3</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -383,9 +383,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Ejercicio 3</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-new-medicines-with-belka"><strong>Predict New Medicines with BELKA</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-de-clasificacion"><strong>Modelos de Clasificación</strong>.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bases-de-datos"><strong>Bases de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas"><strong>Notas</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-proteina-1-seh"><strong>Modelos proteína 1 (SEH)</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-knn"><strong>Modelo KNN</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-regresion-logistica"><strong>Modelo Regresión Logística</strong></a></li>
@@ -411,6 +414,9 @@ document.write(`
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -421,8 +427,11 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ejercicio-3-predict-new-medicines-with-belka">
-<h1><strong>Ejercicio 3</strong>: Predict New Medicines with BELKA<a class="headerlink" href="#ejercicio-3-predict-new-medicines-with-belka" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ejercicio-3">
+<h1><strong>Ejercicio 3</strong><a class="headerlink" href="#ejercicio-3" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="predict-new-medicines-with-belka">
+<h1><strong>Predict New Medicines with BELKA</strong><a class="headerlink" href="#predict-new-medicines-with-belka" title="Link to this heading">#</a></h1>
 <section id="modelos-de-clasificacion">
 <h2><strong>Modelos de Clasificación</strong>.<a class="headerlink" href="#modelos-de-clasificacion" title="Link to this heading">#</a></h2>
 <p>Considere el conjunto de datos <code class="docutils literal notranslate"><span class="pre">NeurIPS</span> <span class="pre">2024-</span> <span class="pre">Predict</span> <span class="pre">New</span> <span class="pre">Medicines</span> <span class="pre">with</span> <span class="pre">BELKA</span></code>. Implemente la versión de clasificación para cada uno de los modelos estudiados en clases, esto es Regresión Logística y KNN. Construir una tabla de error que contenga las métricas usuales de clasificación: precission, recall, f1-score, AUC. Además, agregue matrices de confusión (ver confusion_matrix) y curvas ROC (ver plot_roc). Puede utilizar la librería GridSearchCV y Pipeline para evaluar cada modelo. Verifique que la validación cruzada seleccionada es la adecuada, y justifíquelo. Utilice la métrica AUC, para seleccionar el mejor modelo de clasificación (maximizar AUC). Los resultados deben estar registrados en una tabla de error (ver Tabla 1) que resuma cada score obtenido por modelo implementado.</p>
@@ -463,6 +472,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LinearSegmentedColormap</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
@@ -474,10 +484,63 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">pandas</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">26</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">del</span> <span class="n">_hard_dependencies</span><span class="p">,</span> <span class="n">_dependency</span><span class="p">,</span> <span class="n">_missing_dependencies</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="c1"># numpy compat</span>
+<span class="ne">---&gt; </span><span class="mi">26</span>     <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>         <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span><span class="p">,</span>  <span class="c1"># pyright: ignore[reportUnusedImport] # noqa: F401</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">_err</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="n">_module</span> <span class="o">=</span> <span class="n">_err</span><span class="o">.</span><span class="n">name</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">pandas</span>\<span class="n">compat</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">26</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas.compat._constants</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">IS64</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">ISMUSL</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">PYPY</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="kn">import</span> <span class="nn">pandas.compat.compressors</span>
+<span class="ne">---&gt; </span><span class="mi">26</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="kn">from</span> <span class="nn">pandas.compat.pyarrow</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="n">pa_version_under10p1</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="n">pa_version_under11p0</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span>     <span class="n">pa_version_under16p0</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">pandas</span>\<span class="n">compat</span>\<span class="n">numpy</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">pandas.util.version</span> <span class="kn">import</span> <span class="n">Version</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># numpy versioning</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">_np_version</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">__version__</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">_nlv</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="n">_np_version</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">np_version_lt1p23</span> <span class="o">=</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.23&quot;</span><span class="p">)</span>
+
+<span class="ne">AttributeError</span>: module &#39;numpy&#39; has no attribute &#39;__version__&#39;
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="bases-de-datos">
 <h2><strong>Bases de datos</strong><a class="headerlink" href="#bases-de-datos" title="Link to this heading">#</a></h2>
+<p>Después de realizar el análisis descriptivo de la base de datos y codificar las variables, los datos se filtraron por proteínas y se dividieron en tres conjuntos. Cada uno de estos conjuntos contiene 100,000 observaciones por proteína, y para facilitar su manejo, los resultados se guardaron en formato CSV.</p>
+<p>Los tres archivos resultantes, que serán leídos posteriormente, son:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">proteina1.csv</span></code>: Datos filtrados para la proteína SEH.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proteina2.csv</span></code>: Datos filtrados para la proteína BRD4.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proteina3.csv</span></code>: Datos filtrados para la proteína HSA.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proteina1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;C:/Users/kamac/OneDrive/Desktop/MachineLearningUN/proteina1.csv&#39;</span><span class="p">)</span>
@@ -487,645 +550,21 @@ document.write(`
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proteina1</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>binds</th>
-      <th>buildingblock1_smiles_O=C(NC(Cc1ccccc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(NCC1CCC(C(=O)O)CC1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(NC[C@H]1CC[C@H](C(=O)O)CC1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(N[C@@H](Cc1cccnc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(N[C@H](Cc1ccc(F)c(F)c1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)cc1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)cc1O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)nc1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1cnccc1C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>...</th>
-      <th>buildingblock3_smiles_Nc1c2c(cc3c1CCC3)CCC2</th>
-      <th>buildingblock3_smiles_Nc1cc(C(F)(F)F)cc(C(F)(F)F)c1</th>
-      <th>buildingblock3_smiles_Nc1cc(Cl)ccc1F</th>
-      <th>buildingblock3_smiles_Nc1cc(F)c(F)cc1[N+](=O)[O-]</th>
-      <th>buildingblock3_smiles_Nc1ccc2c(c1)CNCC2</th>
-      <th>buildingblock3_smiles_Nc1cccc2ocnc12</th>
-      <th>buildingblock3_smiles_Nc1cncc(F)c1</th>
-      <th>buildingblock3_smiles_Nc1n[nH]c2ccc([N+](=O)[O-])cc12</th>
-      <th>buildingblock3_smiles_Nc1nc(NCc2ccc(F)cc2)ccc1[N+](=O)[O-]</th>
-      <th>buildingblock3_smiles_Nc1ncco1</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>99995</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>99996</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>99997</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>99998</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>99999</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-  </tbody>
-</table>
-<p>100000 rows × 100 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proteina2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>binds</th>
-      <th>buildingblock1_smiles_CC(C)(C)OC(=O)CCC(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
-      <th>buildingblock1_smiles_CC(C)(C)OCC(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
-      <th>buildingblock1_smiles_CC(C)CC(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
-      <th>buildingblock1_smiles_CC(OC(C)(C)C)C(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
-      <th>buildingblock1_smiles_Cc1ccccc1[C@@H](CC(=O)O)NC(=O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_N#Cc1ccc(C[C@@H](NC(=O)OCC2c3ccccc3-c3ccccc32)C(=O)O)cc1</th>
-      <th>buildingblock1_smiles_O=C(NC(CC1CCCCC1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(NC(CCc1ccccc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(NC(Cc1ccccc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>...</th>
-      <th>buildingblock3_smiles_Nc1cc(Cl)c(O)c(Cl)c1</th>
-      <th>buildingblock3_smiles_Nc1cc(N2CCNCC2)ccc1[N+](=O)[O-]</th>
-      <th>buildingblock3_smiles_Nc1ccc2[nH]ncc2c1</th>
-      <th>buildingblock3_smiles_Nc1ccc2c(c1)CCC2=O</th>
-      <th>buildingblock3_smiles_Nc1ccc2c(c1)CNC2=O</th>
-      <th>buildingblock3_smiles_Nc1ccc2c(c1)COC2=O</th>
-      <th>buildingblock3_smiles_Nc1cccnc1F</th>
-      <th>buildingblock3_smiles_Nc1nc2ccccc2s1</th>
-      <th>buildingblock3_smiles_Nc1nc2nc[nH]c2c(=O)[nH]1</th>
-      <th>buildingblock3_smiles_Nc1nccs1</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>99995</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>99996</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>99997</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>99998</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>99999</th>
-      <td>0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>...</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-  </tbody>
-</table>
-<p>100000 rows × 100 columns</p>
-</div></div></div>
-</div>
+</section>
+<section id="notas">
+<h2><strong>Notas</strong><a class="headerlink" href="#notas" title="Link to this heading">#</a></h2>
+<p>Para la implementación de cada modelo (<code class="docutils literal notranslate"><span class="pre">KNN</span></code> y <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>) correspondiente a cada proteína se tendrá en cuenta lo siguiente:</p>
+<ul class="simple">
+<li><p>Para dividir el conjunto de datos en conjuntos de entrenamiento y prueba, se usará <code class="docutils literal notranslate"><span class="pre">stratify</span> <span class="pre">=</span> <span class="pre">y</span></code>, con el objetivo de mantener la proporción de la clase en ambos conjuntos, dependiendo de la proporción del conjunto de etiquetas.</p></li>
+<li><p>En cada uno de los <code class="docutils literal notranslate"><span class="pre">pipelines</span></code> construidos se hará uso de un scaler estándar <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code>. Esto ayuda a ajustar las características de los datos para que tengan una media de 0 y una desviación estándar de 1. Esto es especialmente importante para algoritmos como <code class="docutils literal notranslate"><span class="pre">KNN</span></code> y <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, ya que su rendimiento puede verse afectado por la escala de las características. En el caso de <code class="docutils literal notranslate"><span class="pre">KNN</span></code>, la distancia entre puntos es fundamental para realizar predicciones, y una escala inapropiada podría dar mayor peso a ciertas características. En <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, una escala uniforme asegura que el algoritmo pueda optimizar eficientemente los coeficientes sin que las características de mayor magnitud dominen.</p></li>
+<li><p>En la validación cruzada se usará <code class="docutils literal notranslate"><span class="pre">StratifiedKFold</span></code> dado la naturaleza de los datos. Al usar <code class="docutils literal notranslate"><span class="pre">StratifiedKFold</span></code> nos aseguramos de que cada pliegue contenga aproximadamente la misma proporción de clases que en el conjunto de datos original. Esto garantiza una evaluación más consistente de los modelos, especialmente en escenarios como este conjunto de datos donde existe un desequilibrio de clases. Esto también ayuda a evitar problemas de sobreajuste o subajuste debido a la distribución desequilibrada de los datos en los pliegues.</p></li>
+<li><p>Finalmente, se usará como métrica AUC, ya que permite medir el rendimiento del modelo en términos de su capacidad para distinguir entre las clases. AUC es especialmente útil en problemas de clasificación binaria y con clases desbalanceadas como este caso, dado que considera tanto la tasa de verdaderos positivos como la tasa de falsos positivos, proporcionando una visión más completa del rendimiento del modelo.</p></li>
+</ul>
 </section>
 <section id="modelos-proteina-1-seh">
 <h2><strong>Modelos proteína 1 (SEH)</strong><a class="headerlink" href="#modelos-proteina-1-seh" title="Link to this heading">#</a></h2>
+<p>Se verifica que se hayan leído los datos correctamente con el método <code class="docutils literal notranslate"><span class="pre">head()</span></code>
+para visualizar las primeras filas y usando el atributo <code class="docutils literal notranslate"><span class="pre">shape</span></code> para revisar que se hayan leído todas las filas y columnas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proteina1</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1312,6 +751,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Luego, se realiza la separación de las variables del conjunto de datos <code class="docutils literal notranslate"><span class="pre">proteina1</span></code>. Almacenando en <code class="docutils literal notranslate"><span class="pre">X1</span></code> todas las columnas del conjunto de datos, excepto la columna binds usando el método <code class="docutils literal notranslate"><span class="pre">drop()</span></code>, y en <code class="docutils literal notranslate"><span class="pre">y1</span></code> los valores de la columna binds, que representa la variable dependiente o el objetivo del modelo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X1</span> <span class="o">=</span> <span class="n">proteina1</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;binds&#39;</span><span class="p">])</span>
@@ -1320,6 +760,8 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Seguido, se realiza la partición del conjunto de datos utilizando el método <code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code>, configurando el parámetro <code class="docutils literal notranslate"><span class="pre">stratify</span></code> igual al conjunto de etiquetas (<code class="docutils literal notranslate"><span class="pre">stratify</span> <span class="pre">=</span> <span class="pre">y1</span></code>). Además se fija un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code>.</p>
+<p>Luego se verifica el tamaño del conjunto de entrentamiento y el de test.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dividir el conjunto de entrenamiento en dos partes: entrenamiento y test</span>
@@ -1354,12 +796,13 @@ document.write(`
 </div>
 <section id="modelo-knn">
 <h3><strong>Modelo KNN</strong><a class="headerlink" href="#modelo-knn" title="Link to this heading">#</a></h3>
+<p>A continuación, se procede a la construcción del pipeline, donde se especifica que primero se debe realizar el escalamiento de los datos mediante el método <code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code> y, posteriormente, ajustar el modelo de clasificación, que en este caso es <code class="docutils literal notranslate"><span class="pre">KNeighborsClassifier()</span></code>. Se utiliza el <code class="docutils literal notranslate"><span class="pre">param_grid_knn1</span></code> para definir los hiperparámetros a evaluar, donde se especifica el número de vecinos del modelo y el peso que toma cada uno de ellos. Seguido a ello, se construye el esquema de validación cruzada mediante el método <code class="docutils literal notranslate"><span class="pre">StratifiedKFold()</span></code>. Finalmente, se aplica el método <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> con cada uno de los argumentos correspondientes y tomando en cuenta la métrica ROC AUC.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_knn1</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())])</span>
 
-<span class="n">param_grid_knn1</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">16</span><span class="p">),</span><span class="c1"># Número de vecinos del modelo</span>
-                   <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]}]</span>
+<span class="n">param_grid_knn1</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+                     <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]}]</span>
 
 <span class="n">kf1</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
 
@@ -1368,18 +811,37 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Ahora, se entrena el modelo y se imprimen los resultados</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_met1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train1</span><span class="p">,</span> <span class="n">y_train1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_met1</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de entrenamiento: &quot;</span><span class="p">,</span><span class="n">grid_met1</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+
+<span class="c1"># Predicción en conjunto de prueba</span>
+<span class="n">y_pred1</span> <span class="o">=</span> <span class="n">grid_met1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)</span>
+<span class="n">prob_knn1</span> <span class="o">=</span> <span class="n">grid_met1</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1">#Esta parte extrae solo la columna correspondiente a la clase positiva (1). </span>
+
+<span class="c1"># AUC en conjunto de prueba</span>
+<span class="n">auc_prueba1</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">prob_knn1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de prueba: &quot;</span><span class="p">,</span> <span class="n">auc_prueba1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__n_neighbors&#39;: 99, &#39;clasificador__weights&#39;: &#39;distance&#39;}
+Mejor AUC en conjunto de entrenamiento:  0.9270946237569136
+Mejor AUC en conjunto de prueba:  0.9290624649594933
 </pre></div>
 </div>
 </div>
 </div>
+<p>El modelo K-NN con <strong>99</strong> vecinos y pesos basados en la distancia ha logrado un buen rendimiento. En el conjunto de entrenamiento, se obtiene un AUC de <strong>0.927</strong>, lo que indica que el modelo es capaz de separar correctamente las clases con un alto nivel de precisión.</p>
+<p>En el conjunto de prueba, el AUC es de <strong>0.929</strong>, lo cual confirma que el rendimiento del modelo se mantiene estable al enfrentarse a datos no vistos. La similitud entre los AUC en entrenamiento y prueba no sugiere indicios de sobreajuste o subajuste.</p>
 </section>
 <section id="modelo-regresion-logistica">
 <h3><strong>Modelo Regresión Logística</strong><a class="headerlink" href="#modelo-regresion-logistica" title="Link to this heading">#</a></h3>
+<p>En esta parte, procedemos de forma similar al método anterior, con la diferencia de que en este caso los hiperparámetros corresponden a diferentes valores que toma el parámetro <code class="docutils literal notranslate"><span class="pre">C</span></code>, necesarios para aplicar la <code class="docutils literal notranslate"><span class="pre">LogisticRegression()</span></code> con un máximo de iteraciones del modelo de 1000.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_rl1</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">))])</span>
@@ -1398,26 +860,42 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_rl1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train1</span><span class="p">,</span> <span class="n">y_train1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_rl1</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de entrenamiento:&quot;</span><span class="p">,</span> <span class="n">grid_rl1</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+
+<span class="c1"># Predicción en conjunto de prueba</span>
+<span class="n">y_pred1</span> <span class="o">=</span> <span class="n">grid_rl1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)</span>
+<span class="n">prob_knn11</span> <span class="o">=</span> <span class="n">grid_rl1</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> 
+
+<span class="c1"># AUC en conjunto de prueba</span>
+<span class="n">auc_prueba11</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">prob_knn11</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de prueba: &quot;</span><span class="p">,</span> <span class="n">auc_prueba11</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__C&#39;: 0.01}
 Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
+Mejor AUC en conjunto de prueba:  0.9505888338168922
 </pre></div>
 </div>
 </div>
 </div>
+<p>Los resultados muestran que el modelo de <strong>Logistic Regression</strong>, con un valor de <strong>C = 0.01</strong> (que controla la regularización), logró un AUC de <strong>0.949</strong> en el conjunto de entrenamiento. Este valor indica que el modelo tiene un excelente rendimiento para distinguir entre las clases positivas y negativas.</p>
+<p>En el conjunto de prueba, el modelo alcanzó un AUC de <strong>0.950</strong>, lo que refleja un rendimiento consistente y similar al de entrenamiento</p>
 </section>
 <section id="cuadro-1">
 <h3><strong>Cuadro 1</strong><a class="headerlink" href="#cuadro-1" title="Link to this heading">#</a></h3>
+<p>Ahora se realizan predicciones utilizando diferentes métricas: <code class="docutils literal notranslate"><span class="pre">precision</span></code>, <code class="docutils literal notranslate"><span class="pre">recall</span></code>, <code class="docutils literal notranslate"><span class="pre">F1-Score</span></code> y <code class="docutils literal notranslate"><span class="pre">ROC_AUC</span></code>, para evaluar el rendimiento de cada modelo utilizado.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
 <span class="n">KYP1</span> <span class="o">=</span> <span class="n">grid_met1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)</span>
 <span class="n">LYP1</span> <span class="o">=</span> <span class="n">grid_rl1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)</span>
 
+<span class="n">prob_knn1</span> <span class="o">=</span> <span class="n">grid_met1</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">prob_lr1</span> <span class="o">=</span> <span class="n">grid_rl1</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
 <span class="c1"># Evalua las predicciones en cada métrica con las etiquetas del test</span>
+
 <span class="n">tabla1</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;K-nn&#39;</span><span class="p">,</span> <span class="s1">&#39;Regresión logística&#39;</span><span class="p">],</span>
     <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">[</span>
@@ -1434,8 +912,8 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
     <span class="p">],</span>
     <span class="c1"># En ROC AUC, No se tienen en cuenta las etiquetas sino las probabilidades</span>
     <span class="s1">&#39;ROC AUC&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">KYP1</span><span class="p">),</span>
-        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">LYP1</span><span class="p">)</span>
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">prob_knn1</span><span class="p">),</span>
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">prob_lr1</span><span class="p">)</span>
     <span class="p">]</span>
 <span class="p">}</span>
 
@@ -1474,10 +952,10 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
     <tr>
       <th>0</th>
       <td>K-nn</td>
-      <td>0.846154</td>
-      <td>0.059783</td>
-      <td>0.111675</td>
-      <td>0.529851</td>
+      <td>0.653846</td>
+      <td>0.277174</td>
+      <td>0.389313</td>
+      <td>0.929062</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1485,15 +963,17 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
       <td>0.594059</td>
       <td>0.326087</td>
       <td>0.421053</td>
-      <td>0.662217</td>
+      <td>0.950589</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+<p>El modelo K-NN muestra una buena precisión (0.653846), lo que significa que es relativamente efectivo en la predicción de moléculas que realmente se adhieren. Sin embargo, tiene un bajo recall (0.277174), lo que indica que pierde muchas moléculas que deberían haber sido identificadas como adherentes. Por otro lado, el modelo de regresión logística, tiene una precisión ligeramente más baja (0.594059) que K-NN, pero un mejor recall (0.326087), lo que significa que puede identificar un mayor número de moléculas aglutinantes.</p>
 </section>
 <section id="matrices-de-confusion">
 <h3><strong>Matrices de confusión</strong><a class="headerlink" href="#matrices-de-confusion" title="Link to this heading">#</a></h3>
+<p>Para tener una mejor visualización de los datos, la matriz de confusión nos permite saber cuantas observaciones se clasifican como bien predichas o falsos positivos o negativos. Se hacen dos matrices de confusión, una para el modelo KNN y otra para Regresión Logistica.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#FF69B4&#39;</span><span class="p">,</span> <span class="s1">&#39;#FF6EB4&#39;</span><span class="p">,</span> <span class="s1">&#39;#EE6AA7&#39;</span><span class="p">,</span> <span class="s1">&#39;#CD6090&#39;</span><span class="p">,</span> <span class="s1">&#39;#8B3A62&#39;</span><span class="p">]</span>
@@ -1519,8 +999,8 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 <span class="c1"># Gráfico de la Matriz de Confusión para la Regresión Logística</span>
 
 <span class="n">y_pred_lr1</span> <span class="o">=</span> <span class="n">LYP1</span>
-<span class="n">cm_logistic</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_lr1</span><span class="p">)</span>  <span class="c1"># Crear la matriz de confusión</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_logistic</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
+<span class="n">cm_logistic1</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_lr1</span><span class="p">)</span>  <span class="c1"># Crear la matriz de confusión</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_logistic1</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
             <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Real: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Real: 1&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predicciones&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valores Reales&#39;</span><span class="p">)</span>
@@ -1533,29 +1013,36 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e84752b26d6385a9b428f18b6eece5f9decfca32e77baeff9cf75a38b80011fd.png" src="_images/e84752b26d6385a9b428f18b6eece5f9decfca32e77baeff9cf75a38b80011fd.png" />
+<img alt="_images/885af318aafe1bbca9d037305d69b00f991e4f1cf55e6d32c18f2e9cc8f8c98c.png" src="_images/885af318aafe1bbca9d037305d69b00f991e4f1cf55e6d32c18f2e9cc8f8c98c.png" />
 </div>
 </div>
+<p>Al ver las matrices de confusión se puede decir lo siguiente:</p>
+<ul class="simple">
+<li><p>En el K-NN, de las 24816 muestras negativas (clase 0), 27 fueron mal clasificadas como positivas (clase 1). De las 184 muestras positivas (clase 1), 51 fueron clasificadas correctamente, lo que muestra un bajo rendimiento en la detección de positivos.</p></li>
+<li><p>En la Regresión Logística, de las 24816 muestras negativas, 41 fueron mal clasificadas como positivas. Sin embargo, de las 184 muestras positivas, 60 fueron correctamente clasificadas, mejorando la detección de positivos frente al K-NN, aunque con más falsos positivos.</p></li>
+</ul>
+<p>En resumen, la regresión logística ofrece un mejor equilibrio en la clasificación de positivos que el K-NN, aunque comete más errores en negativos.</p>
 </section>
 <section id="curvas-roc">
 <h3><strong>Curvas ROC</strong><a class="headerlink" href="#curvas-roc" title="Link to this heading">#</a></h3>
+<p>Ahora, se hace la construcción de las curvas ROC para evaluar el rendimiento de un modelo de clasificación. Su objetivo es medir qué tan bien un modelo separa las clases positivas de las negativas. Un buen modelo tendrá una curva que se acerca al área superior izquierda, indicando una alta capacidad de discriminación entre las clases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_prob_knn</span> <span class="o">=</span> <span class="n">grid_met1</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para K-NN</span>
-<span class="n">y_pred_prob_lr</span> <span class="o">=</span> <span class="n">grid_rl1</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para Regresión Logística</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_prob_knn1</span> <span class="o">=</span> <span class="n">grid_met1</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para K-NN</span>
+<span class="n">y_pred_prob_lr1</span> <span class="o">=</span> <span class="n">grid_rl1</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test1</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para Regresión Logística</span>
 
 <span class="c1"># Valores para la curva ROC para K-NN</span>
-<span class="n">fpr_knn</span><span class="p">,</span> <span class="n">tpr_knn</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_prob_knn</span><span class="p">)</span>
-<span class="n">roc_auc_knn</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_prob_knn</span><span class="p">)</span>
+<span class="n">fpr_knn1</span><span class="p">,</span> <span class="n">tpr_knn1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_prob_knn1</span><span class="p">)</span>
+<span class="n">roc_auc_knn1</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_prob_knn1</span><span class="p">)</span>
 
 <span class="c1"># Valores para la curva ROC para Regresión Logística</span>
-<span class="n">fpr_lr</span><span class="p">,</span> <span class="n">tpr_lr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_prob_lr</span><span class="p">)</span>
-<span class="n">roc_auc_lr</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_prob_lr</span><span class="p">)</span>
+<span class="n">fpr_lr1</span><span class="p">,</span> <span class="n">tpr_lr1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_prob_lr1</span><span class="p">)</span>
+<span class="n">roc_auc_lr1</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test1</span><span class="p">,</span> <span class="n">y_pred_prob_lr1</span><span class="p">)</span>
 
 <span class="c1"># Graficar ambas curvas ROC en el mismo gráfico</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_knn</span><span class="p">,</span> <span class="n">tpr_knn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#FF69B4&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;K-NN (AUC = </span><span class="si">{</span><span class="n">roc_auc_knn</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_lr</span><span class="p">,</span> <span class="n">tpr_lr</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#8B3A62&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Regresión Logística (AUC = </span><span class="si">{</span><span class="n">roc_auc_lr</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_knn1</span><span class="p">,</span> <span class="n">tpr_knn1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#FF69B4&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;K-NN (AUC = </span><span class="si">{</span><span class="n">roc_auc_knn1</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_lr1</span><span class="p">,</span> <span class="n">tpr_lr1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#8B3A62&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Regresión Logística (AUC = </span><span class="si">{</span><span class="n">roc_auc_lr1</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
 
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tasa de Falsos Positivos (FPR)&#39;</span><span class="p">)</span>
@@ -1568,13 +1055,17 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/edc45a38b8d5834dcce3b1e3a408be0743934cfb70dc18029d481ed94e89f5ac.png" src="_images/edc45a38b8d5834dcce3b1e3a408be0743934cfb70dc18029d481ed94e89f5ac.png" />
+<img alt="_images/0b244ba7a18807fec5579993100d357c7100374a1fd15e192ef5a8824f3b2ef2.png" src="_images/0b244ba7a18807fec5579993100d357c7100374a1fd15e192ef5a8824f3b2ef2.png" />
 </div>
 </div>
+<p>La gráfica muestra las curvas ROC para los modelos K-NN y Regresión Logística. La curva de Regresión Logística tiene un área bajo la curva (AUC) de 0.95, lo que indica un excelente rendimiento al separar las clases positivas y negativas. En comparación, la curva del modelo K-NN tiene un AUC de 0.93, que, aunque es bueno, es inferior al de la Regresión Logística. Esto significa que la regresión logística tiene una mejor capacidad para distinguir correctamente entre clases que el K-NN.</p>
+<p>Esto confirma que la regresión logística es mucho más efectiva que K-NN para separar correctamente las clases en este conjunto de datos (proteina 1).</p>
 </section>
 </section>
 <section id="modelos-proteina-2-brd4">
 <h2><strong>Modelos proteína 2 (BRD4)</strong><a class="headerlink" href="#modelos-proteina-2-brd4" title="Link to this heading">#</a></h2>
+<p>Se verifica que se hayan leído los datos correctamente con el método <code class="docutils literal notranslate"><span class="pre">head()</span></code>
+para visualizar las primeras filas y usando el atributo <code class="docutils literal notranslate"><span class="pre">shape</span></code> para revisar que se hayan leído todas las filas y columnas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proteina2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1601,26 +1092,26 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
     <tr style="text-align: right;">
       <th></th>
       <th>binds</th>
+      <th>buildingblock1_smiles_CC(C)(C)OC(=O)CCC(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
+      <th>buildingblock1_smiles_CC(C)(C)OCC(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
+      <th>buildingblock1_smiles_CC(C)CC(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
+      <th>buildingblock1_smiles_CC(OC(C)(C)C)C(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
+      <th>buildingblock1_smiles_Cc1ccccc1[C@@H](CC(=O)O)NC(=O)OCC1c2ccccc2-c2ccccc21</th>
+      <th>buildingblock1_smiles_N#Cc1ccc(C[C@@H](NC(=O)OCC2c3ccccc3-c3ccccc32)C(=O)O)cc1</th>
+      <th>buildingblock1_smiles_O=C(NC(CC1CCCCC1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
+      <th>buildingblock1_smiles_O=C(NC(CCc1ccccc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
       <th>buildingblock1_smiles_O=C(NC(Cc1ccccc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(NCC1CCC(C(=O)O)CC1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(NC[C@H]1CC[C@H](C(=O)O)CC1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(N[C@@H](Cc1cccnc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(N[C@H](Cc1ccc(F)c(F)c1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)cc1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)cc1O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)nc1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1cnccc1C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
       <th>...</th>
-      <th>buildingblock3_smiles_Nc1c2c(cc3c1CCC3)CCC2</th>
-      <th>buildingblock3_smiles_Nc1cc(C(F)(F)F)cc(C(F)(F)F)c1</th>
-      <th>buildingblock3_smiles_Nc1cc(Cl)ccc1F</th>
-      <th>buildingblock3_smiles_Nc1cc(F)c(F)cc1[N+](=O)[O-]</th>
-      <th>buildingblock3_smiles_Nc1ccc2c(c1)CNCC2</th>
-      <th>buildingblock3_smiles_Nc1cccc2ocnc12</th>
-      <th>buildingblock3_smiles_Nc1cncc(F)c1</th>
-      <th>buildingblock3_smiles_Nc1n[nH]c2ccc([N+](=O)[O-])cc12</th>
-      <th>buildingblock3_smiles_Nc1nc(NCc2ccc(F)cc2)ccc1[N+](=O)[O-]</th>
-      <th>buildingblock3_smiles_Nc1ncco1</th>
+      <th>buildingblock3_smiles_Nc1cc(Cl)c(O)c(Cl)c1</th>
+      <th>buildingblock3_smiles_Nc1cc(N2CCNCC2)ccc1[N+](=O)[O-]</th>
+      <th>buildingblock3_smiles_Nc1ccc2[nH]ncc2c1</th>
+      <th>buildingblock3_smiles_Nc1ccc2c(c1)CCC2=O</th>
+      <th>buildingblock3_smiles_Nc1ccc2c(c1)CNC2=O</th>
+      <th>buildingblock3_smiles_Nc1ccc2c(c1)COC2=O</th>
+      <th>buildingblock3_smiles_Nc1cccnc1F</th>
+      <th>buildingblock3_smiles_Nc1nc2ccccc2s1</th>
+      <th>buildingblock3_smiles_Nc1nc2nc[nH]c2c(=O)[nH]1</th>
+      <th>buildingblock3_smiles_Nc1nccs1</th>
     </tr>
   </thead>
   <tbody>
@@ -1669,7 +1160,7 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.0</td>
+      <td>1.0</td>
       <td>0.0</td>
     </tr>
     <tr>
@@ -1761,6 +1252,7 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 </div>
+<p>Luego, se realiza la separación de las variables del conjunto de datos <code class="docutils literal notranslate"><span class="pre">proteina2</span></code>. Almacenando en <code class="docutils literal notranslate"><span class="pre">X2</span></code> todas las columnas del conjunto de datos, excepto la columna binds usando el método <code class="docutils literal notranslate"><span class="pre">drop()</span></code>, y en <code class="docutils literal notranslate"><span class="pre">y2</span></code> los valores de la columna binds, que representa la variable dependiente o el objetivo del modelo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X2</span> <span class="o">=</span> <span class="n">proteina2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;binds&#39;</span><span class="p">])</span>
@@ -1769,6 +1261,8 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 </div>
+<p>Seguido, se realiza la partición del conjunto de datos utilizando el método <code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code>, configurando el parámetro <code class="docutils literal notranslate"><span class="pre">stratify</span></code> igual al conjunto de etiquetas (<code class="docutils literal notranslate"><span class="pre">stratify</span> <span class="pre">=</span> <span class="pre">y2</span></code>). Además se fija un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code>.</p>
+<p>Luego se verifica el tamaño del conjunto de entrentamiento y el de test.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dividir el conjunto de entrenamiento en dos partes: entrenamiento y test</span>
@@ -1803,12 +1297,13 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 <section id="id1">
 <h3><strong>Modelo KNN</strong><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Siguiendo, se repite el mismo proceso y con los mismos hiperparámetros que la <code class="docutils literal notranslate"><span class="pre">proteina1</span></code> para el modelo <code class="docutils literal notranslate"><span class="pre">KNN</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_knn2</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())])</span>
 
-<span class="n">param_grid_knn2</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">16</span><span class="p">),</span><span class="c1"># Número de vecinos del modelo</span>
-                   <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]}]</span>
+<span class="n">param_grid_knn2</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">100</span><span class="p">),</span><span class="c1"># Número de vecinos del modelo</span>
+                   <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]}]</span>
 
 <span class="n">kf2</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
 
@@ -1822,19 +1317,31 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_met2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_met2</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de entrenamiento: &quot;</span><span class="p">,</span><span class="n">grid_met2</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+
+<span class="c1"># Predicción en conjunto de prueba</span>
+<span class="n">y_pred2</span> <span class="o">=</span> <span class="n">grid_met2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)</span>
+<span class="n">prob_knn2</span> <span class="o">=</span> <span class="n">grid_met2</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1">#Esta parte extrae solo la columna correspondiente a la clase positiva (1). </span>
+
+<span class="c1"># AUC en conjunto de prueba</span>
+<span class="n">auc_prueba2</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">prob_knn2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de prueba: &quot;</span><span class="p">,</span> <span class="n">auc_prueba2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__n_neighbors&#39;: 15, &#39;clasificador__weights&#39;: &#39;distance&#39;}
-Mejor AUC en conjunto de entrenamiento:  0.8242267120298731
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__n_neighbors&#39;: 99, &#39;clasificador__weights&#39;: &#39;distance&#39;}
+Mejor AUC en conjunto de entrenamiento:  0.8544641322352771
+Mejor AUC en conjunto de prueba:  0.853590314230443
 </pre></div>
 </div>
 </div>
 </div>
+<p>Este resultado muestra que el modelo <strong>K-NN</strong>, con <strong>99 vecinos</strong> y pesos basados en la distancia (priorizando la cercanía de los vecinos), alcanzó un AUC de <strong>0.8546</strong> en el conjunto de entrenamiento. Esto indica que el modelo tiene un buen rendimiento para separar correctamente las clases en los datos de entrenamiento.</p>
+<p>En el conjunto de prueba, el modelo logró un AUC de <strong>0.8536</strong>, lo cual es muy cercano al valor obtenido en el conjunto de entrenamiento. Esto sugiere que el modelo está generalizando bien a los datos, sin signos de sobreajuste.</p>
 </section>
 <section id="id2">
 <h3><strong>Modelo Regresión Logística</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Siguiendo, se repite el mismo proceso y con los mismos hiperparámetros que la <code class="docutils literal notranslate"><span class="pre">proteina1</span></code> para el modelo <code class="docutils literal notranslate"><span class="pre">Regresión</span> <span class="pre">Logistica</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_rl2</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">))])</span>
@@ -1853,49 +1360,62 @@ Mejor AUC en conjunto de entrenamiento:  0.8242267120298731
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_rl2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train2</span><span class="p">,</span> <span class="n">y_train2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_rl2</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de entrenamiento:&quot;</span><span class="p">,</span> <span class="n">grid_rl2</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+
+<span class="c1"># Predicción en conjunto de prueba</span>
+<span class="n">y_pred22</span> <span class="o">=</span> <span class="n">grid_rl2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)</span>
+<span class="n">prob_knn22</span> <span class="o">=</span> <span class="n">grid_rl2</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> 
+
+<span class="c1"># AUC en conjunto de prueba</span>
+<span class="n">auc_prueba22</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">prob_knn22</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de prueba: &quot;</span><span class="p">,</span> <span class="n">auc_prueba22</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__C&#39;: 0.01}
-Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
+Mejor AUC en conjunto de entrenamiento: 0.9350363467583321
+Mejor AUC en conjunto de prueba:  0.937688287446857
 </pre></div>
 </div>
 </div>
 </div>
+<p>Este resultado muestra que el modelo de <strong>Regresión Logística</strong>, con un valor de <strong>C = 0.01</strong> (que implica una regularización fuerte), alcanzó un AUC de <strong>0.9350</strong> en el conjunto de entrenamiento.En el conjunto de prueba, el modelo logró un AUC de <strong>0.9377</strong>, lo que es muy cercano al valor obtenido en el conjunto de entrenamiento. Esta consistencia entre ambos conjuntos indica que el modelo tiene una buena capacidad de generalización, evitando problemas de sobreajuste.</p>
 </section>
 <section id="id3">
 <h3><strong>Cuadro 1</strong><a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Ahora se realizan predicciones utilizando diferentes métricas: <code class="docutils literal notranslate"><span class="pre">precision</span></code>, <code class="docutils literal notranslate"><span class="pre">recall</span></code>, <code class="docutils literal notranslate"><span class="pre">F1-Score</span></code> y <code class="docutils literal notranslate"><span class="pre">ROC_AUC</span></code>, para evaluar el rendimiento de cada modelo utilizado.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
-<span class="n">KYP</span> <span class="o">=</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">LYP</span> <span class="o">=</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">KYP2</span> <span class="o">=</span> <span class="n">grid_met2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)</span>
+<span class="n">LYP2</span> <span class="o">=</span> <span class="n">grid_rl2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)</span>
 
-<span class="c1"># Evalua las predicciones en cada métrica con las etiquetas del test</span>
-<span class="n">tabla1</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">prob_knn2</span> <span class="o">=</span> <span class="n">grid_met2</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">prob_lr2</span> <span class="o">=</span> <span class="n">grid_rl2</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">tabla2</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;K-nn&#39;</span><span class="p">,</span> <span class="s1">&#39;Regresión logística&#39;</span><span class="p">],</span>
     <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span> <span class="c1"># K-NN</span>
-        <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span> <span class="c1"># Regresión logística</span>
+        <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">KYP2</span><span class="p">),</span> <span class="c1"># K-NN</span>
+        <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">LYP2</span><span class="p">)</span> <span class="c1"># Regresión logística</span>
     <span class="p">],</span>
     <span class="s1">&#39;Recall&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span>
-        <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>
+        <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">KYP2</span><span class="p">),</span>
+        <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">LYP2</span><span class="p">)</span>
     <span class="p">],</span>
     <span class="s1">&#39;F1 Score&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span>
-        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>
+        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">KYP2</span><span class="p">),</span>
+        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">LYP2</span><span class="p">)</span>
     <span class="p">],</span>
     <span class="c1"># En ROC AUC, No se tienen en cuenta las etiquetas sino las probabilidades</span>
     <span class="s1">&#39;ROC AUC&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span>
-        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">prob_knn2</span><span class="p">),</span>
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">prob_lr2</span><span class="p">)</span>
     <span class="p">]</span>
 <span class="p">}</span>
 
-<span class="n">cuadro1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tabla1</span><span class="p">)</span>
-<span class="n">cuadro1</span>
+<span class="n">cuadro2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tabla2</span><span class="p">)</span>
+<span class="n">cuadro2</span>
 </pre></div>
 </div>
 </div>
@@ -1929,26 +1449,29 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
     <tr>
       <th>0</th>
       <td>K-nn</td>
-      <td>0.846154</td>
-      <td>0.059783</td>
-      <td>0.111675</td>
-      <td>0.529851</td>
+      <td>0.800000</td>
+      <td>0.068966</td>
+      <td>0.126984</td>
+      <td>0.853590</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Regresión logística</td>
-      <td>0.594059</td>
-      <td>0.326087</td>
-      <td>0.421053</td>
-      <td>0.662217</td>
+      <td>0.615385</td>
+      <td>0.137931</td>
+      <td>0.225352</td>
+      <td>0.937688</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+<p>El modelo <strong>K-NN</strong> muestra una buena precisión (<strong>0.80</strong>), lo que indica que es eficaz para predecir correctamente las moléculas que realmente se adhieren. Sin embargo, tiene un bajo recall (<strong>0.068966</strong>), lo que sugiere que el modelo no está identificando muchas moléculas que deberían haber sido clasificadas como adherentes. Esto puede darse dado al desbalance del conjunto de datos</p>
+<p>Por otro lado, el modelo de <strong>Regresión Logística</strong> tiene una precisión más baja (<strong>0.615385</strong>) en comparación con K-NN, pero presenta un mejor recall (<strong>0.137931</strong>). Esto significa que el modelo es más eficiente en la identificación de moléculas aglutinantes en comparación con K-NN, aunque su precisión no es tan alta.</p>
 </section>
 <section id="id4">
 <h3><strong>Matrices de confusión</strong><a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>Para tener una mejor visualización de los datos, la matriz de confusión nos permite saber cuantas observaciones se clasifican como bien predichas o falsos positivos o negativos. Se hacen dos matrices de confusión, una para el modelo KNN y otra para Regresión Logistica.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#FF69B4&#39;</span><span class="p">,</span> <span class="s1">&#39;#FF6EB4&#39;</span><span class="p">,</span> <span class="s1">&#39;#EE6AA7&#39;</span><span class="p">,</span> <span class="s1">&#39;#CD6090&#39;</span><span class="p">,</span> <span class="s1">&#39;#8B3A62&#39;</span><span class="p">]</span>
@@ -1963,9 +1486,9 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 
 <span class="c1"># Gráfico de la Matriz de Confusión para KNN</span>
 
-<span class="n">y_pred_knn</span> <span class="o">=</span> <span class="n">KYP</span>
-<span class="n">cm_knn</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_knn</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
+<span class="n">y_pred_knn2</span> <span class="o">=</span> <span class="n">KYP2</span>
+<span class="n">cm_knn2</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">y_pred_knn2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_knn2</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
             <span class="n">yticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Real: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Real: 1&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predicciones&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valores Reales&#39;</span><span class="p">)</span>
@@ -1973,9 +1496,9 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 
 <span class="c1"># Gráfico de la Matriz de Confusión para la Regresión Logística</span>
 
-<span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">LYP</span>
-<span class="n">cm_logistic</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>  <span class="c1"># Crear la matriz de confusión</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_logistic</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
+<span class="n">y_pred_lr2</span> <span class="o">=</span> <span class="n">LYP2</span>
+<span class="n">cm_logistic2</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">y_pred_lr2</span><span class="p">)</span>  <span class="c1"># Crear la matriz de confusión</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_logistic2</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
             <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Real: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Real: 1&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predicciones&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valores Reales&#39;</span><span class="p">)</span>
@@ -1988,29 +1511,35 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e84752b26d6385a9b428f18b6eece5f9decfca32e77baeff9cf75a38b80011fd.png" src="_images/e84752b26d6385a9b428f18b6eece5f9decfca32e77baeff9cf75a38b80011fd.png" />
+<img alt="_images/355d1d376b51de4617387598ff2349af694b5ef604fd8228b96693c8256ecb55.png" src="_images/355d1d376b51de4617387598ff2349af694b5ef604fd8228b96693c8256ecb55.png" />
 </div>
 </div>
+<p>Al observar las matrices de confusión, se puede concluir lo siguiente:</p>
+<ul class="simple">
+<li><p>En el <strong>K-NN</strong>, de las <strong>24884</strong> muestras negativas (clase 0), <strong>2</strong> fueron mal clasificadas como positivas (clase 1). Sin embargo, de las <strong>116</strong> muestras positivas (clase 1), solo <strong>8</strong> fueron clasificadas correctamente. Esto evidencia un bajo rendimiento en la detección de positivos, ya que la mayoría de los casos positivos fueron clasificados incorrectamente como negativos.</p></li>
+<li><p>En la <strong>Regresión Logística</strong>, de las <strong>24874</strong> muestras negativas, <strong>10</strong> fueron mal clasificadas como positivas. De las <strong>116</strong> muestras positivas, <strong>16</strong> fueron correctamente clasificadas. Aunque la regresión logística también presenta falsos positivos, mejora en la detección de los casos positivos en comparación con K-NN.</p></li>
+</ul>
 </section>
 <section id="id5">
 <h3><strong>Curvas ROC</strong><a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>Ahora, se hace la construcción de las curvas ROC para evaluar el rendimiento de un modelo de clasificación, y poder mostrar la relación entre la tasa de verdaderos positivos y la tasa de falsos positivos en diferentes umbrales de decisión.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_prob_knn</span> <span class="o">=</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para K-NN</span>
-<span class="n">y_pred_prob_lr</span> <span class="o">=</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para Regresión Logística</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_prob_knn2</span> <span class="o">=</span> <span class="n">grid_met2</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para K-NN</span>
+<span class="n">y_pred_prob_lr2</span> <span class="o">=</span> <span class="n">grid_rl2</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test2</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para Regresión Logística</span>
 
 <span class="c1"># Valores para la curva ROC para K-NN</span>
-<span class="n">fpr_knn</span><span class="p">,</span> <span class="n">tpr_knn</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob_knn</span><span class="p">)</span>
-<span class="n">roc_auc_knn</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob_knn</span><span class="p">)</span>
+<span class="n">fpr_knn2</span><span class="p">,</span> <span class="n">tpr_knn2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">y_pred_prob_knn2</span><span class="p">)</span>
+<span class="n">roc_auc_knn2</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">y_pred_prob_knn2</span><span class="p">)</span>
 
 <span class="c1"># Valores para la curva ROC para Regresión Logística</span>
-<span class="n">fpr_lr</span><span class="p">,</span> <span class="n">tpr_lr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob_lr</span><span class="p">)</span>
-<span class="n">roc_auc_lr</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob_lr</span><span class="p">)</span>
+<span class="n">fpr_lr2</span><span class="p">,</span> <span class="n">tpr_lr2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">y_pred_prob_lr2</span><span class="p">)</span>
+<span class="n">roc_auc_lr2</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test2</span><span class="p">,</span> <span class="n">y_pred_prob_lr2</span><span class="p">)</span>
 
 <span class="c1"># Graficar ambas curvas ROC en el mismo gráfico</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_knn</span><span class="p">,</span> <span class="n">tpr_knn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#FF69B4&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;K-NN (AUC = </span><span class="si">{</span><span class="n">roc_auc_knn</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_lr</span><span class="p">,</span> <span class="n">tpr_lr</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#8B3A62&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Regresión Logística (AUC = </span><span class="si">{</span><span class="n">roc_auc_lr</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_knn2</span><span class="p">,</span> <span class="n">tpr_knn2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#FF69B4&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;K-NN (AUC = </span><span class="si">{</span><span class="n">roc_auc_knn2</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_lr2</span><span class="p">,</span> <span class="n">tpr_lr2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#8B3A62&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Regresión Logística (AUC = </span><span class="si">{</span><span class="n">roc_auc_lr2</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
 
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tasa de Falsos Positivos (FPR)&#39;</span><span class="p">)</span>
@@ -2023,13 +1552,21 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/edc45a38b8d5834dcce3b1e3a408be0743934cfb70dc18029d481ed94e89f5ac.png" src="_images/edc45a38b8d5834dcce3b1e3a408be0743934cfb70dc18029d481ed94e89f5ac.png" />
+<img alt="_images/04d843c2aa9b1168a882a6a6e520c302a8bfaf20a34365956941963a9a27e0c9.png" src="_images/04d843c2aa9b1168a882a6a6e520c302a8bfaf20a34365956941963a9a27e0c9.png" />
 </div>
 </div>
+<p>La gráfica muestra las curvas ROC para los modelos <strong>K-NN</strong> y <strong>Regresión Logística</strong>.</p>
+<ul class="simple">
+<li><p>La <strong>Regresión Logística</strong> tiene un área bajo la curva (<strong>AUC</strong>) de <strong>0.94</strong>, lo que indica un excelente rendimiento en la discriminación entre clases positivas y negativas. Esto significa que el modelo es altamente efectivo para predecir correctamente las clases en este conjunto de datos.</p></li>
+<li><p>El modelo <strong>K-NN</strong> tiene un <strong>AUC</strong> de <strong>0.85</strong>, lo que indica un buen rendimiento, pero significativamente inferior al de la Regresión Logística.</p></li>
+</ul>
+<p>En conclusión, la <strong>Regresión Logística</strong> es mucho más efectiva que <strong>K-NN</strong> para separar correctamente las clases, lo que sugiere que, la regresión logística es el mejor modelo para predecir la adherencia de moléculas a las proteínas.</p>
 </section>
 </section>
 <section id="modelos-proteina-3-hsa">
 <h2><strong>Modelos proteína 3 (HSA)</strong><a class="headerlink" href="#modelos-proteina-3-hsa" title="Link to this heading">#</a></h2>
+<p>Se verifica que se hayan leído los datos correctamente con el método <code class="docutils literal notranslate"><span class="pre">head()</span></code>
+para visualizar las primeras filas y usando el atributo <code class="docutils literal notranslate"><span class="pre">shape</span></code> para revisar que se hayan leído todas las filas y columnas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">proteina3</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -2056,26 +1593,26 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
     <tr style="text-align: right;">
       <th></th>
       <th>binds</th>
+      <th>buildingblock1_smiles_CC(C)(C)OC(=O)CCC(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
+      <th>buildingblock1_smiles_CC(OC(C)(C)C)C(NC(=O)OCC1c2ccccc2-c2ccccc21)C(=O)O</th>
+      <th>buildingblock1_smiles_Cc1cc(Cl)cc(C(=O)O)c1NC(=O)OCC1c2ccccc2-c2ccccc21</th>
+      <th>buildingblock1_smiles_Cc1ccc(C(=O)O)cc1NC(=O)OCC1c2ccccc2-c2ccccc21</th>
+      <th>buildingblock1_smiles_O=C(NC(CC1CCCCC1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
       <th>buildingblock1_smiles_O=C(NC(Cc1ccccc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(NCC1CCC(C(=O)O)CC1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(NC[C@H]1CC[C@H](C(=O)O)CC1)OCC1c2ccccc2-c2ccccc21</th>
       <th>buildingblock1_smiles_O=C(N[C@@H](Cc1cccnc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(N[C@H](Cc1ccc(F)c(F)c1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)cc1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)cc1O)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1ccc(C(=O)O)nc1)OCC1c2ccccc2-c2ccccc21</th>
-      <th>buildingblock1_smiles_O=C(Nc1cnccc1C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
+      <th>buildingblock1_smiles_O=C(N[C@H](Cc1ccc(-c2ccccc2)cc1)C(=O)O)OCC1c2ccccc2-c2ccccc21</th>
+      <th>buildingblock1_smiles_O=C(Nc1cc(C(=O)O)cc(C(=O)O)c1)OCC1c2ccccc2-c2ccccc21</th>
       <th>...</th>
-      <th>buildingblock3_smiles_Nc1c2c(cc3c1CCC3)CCC2</th>
-      <th>buildingblock3_smiles_Nc1cc(C(F)(F)F)cc(C(F)(F)F)c1</th>
-      <th>buildingblock3_smiles_Nc1cc(Cl)ccc1F</th>
-      <th>buildingblock3_smiles_Nc1cc(F)c(F)cc1[N+](=O)[O-]</th>
-      <th>buildingblock3_smiles_Nc1ccc2c(c1)CNCC2</th>
       <th>buildingblock3_smiles_Nc1cccc2ocnc12</th>
+      <th>buildingblock3_smiles_Nc1cn[nH]c1</th>
       <th>buildingblock3_smiles_Nc1cncc(F)c1</th>
-      <th>buildingblock3_smiles_Nc1n[nH]c2ccc([N+](=O)[O-])cc12</th>
-      <th>buildingblock3_smiles_Nc1nc(NCc2ccc(F)cc2)ccc1[N+](=O)[O-]</th>
-      <th>buildingblock3_smiles_Nc1ncco1</th>
+      <th>buildingblock3_smiles_Nc1n[nH]c2cc(F)ccc12</th>
+      <th>buildingblock3_smiles_Nc1nc(Cl)c2[nH]cnc2n1</th>
+      <th>buildingblock3_smiles_Nc1nc2c(s1)CN(C(=O)OCc1ccccc1)CC2</th>
+      <th>buildingblock3_smiles_Nc1nc[nH]n1</th>
+      <th>buildingblock3_smiles_Nc1ncnc(Cl)c1Cl</th>
+      <th>buildingblock3_smiles_Nc1nncs1</th>
+      <th>buildingblock3_smiles_Nc1nnn[nH]1</th>
     </tr>
   </thead>
   <tbody>
@@ -2216,25 +1753,28 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 </div>
+<p>Luego, se realiza la separación de las variables del conjunto de datos <code class="docutils literal notranslate"><span class="pre">proteina3</span></code>. Almacenando en <code class="docutils literal notranslate"><span class="pre">X3</span></code> todas las columnas del conjunto de datos, excepto la columna binds usando el método <code class="docutils literal notranslate"><span class="pre">drop()</span></code>, y en <code class="docutils literal notranslate"><span class="pre">y3</span></code> los valores de la columna binds, que representa la variable dependiente o el objetivo del modelo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">proteina3</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;binds&#39;</span><span class="p">])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">proteina3</span><span class="p">[</span><span class="s1">&#39;binds&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X3</span> <span class="o">=</span> <span class="n">proteina3</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;binds&#39;</span><span class="p">])</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">proteina3</span><span class="p">[</span><span class="s1">&#39;binds&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Seguido, se realiza la partición del conjunto de datos utilizando el método <code class="docutils literal notranslate"><span class="pre">train_test_split()</span></code>, configurando el parámetro <code class="docutils literal notranslate"><span class="pre">stratify</span></code> igual al conjunto de etiquetas (<code class="docutils literal notranslate"><span class="pre">stratify</span> <span class="pre">=</span> <span class="pre">y3</span></code>). Además se fija un <code class="docutils literal notranslate"><span class="pre">random_state</span> <span class="pre">=</span> <span class="pre">11</span></code>.</p>
+<p>Luego se verifica el tamaño del conjunto de entrentamiento y el de test.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dividir el conjunto de entrenamiento en dos partes: entrenamiento y test</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">X_train3</span><span class="p">,</span> <span class="n">X_test3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">,</span> <span class="n">y_test3</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X3</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">y3</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">y_train3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2246,7 +1786,7 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">y_test3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2258,99 +1798,124 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 <section id="id6">
 <h3><strong>Modelo KNN</strong><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Siguiendo, se repite el mismo proceso y con los mismos hiperparámetros que la <code class="docutils literal notranslate"><span class="pre">proteina1</span></code> para el modelo <code class="docutils literal notranslate"><span class="pre">KNN</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_knn</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_knn3</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">KNeighborsClassifier</span><span class="p">())])</span>
 
-<span class="n">param_grid_knn</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">16</span><span class="p">),</span><span class="c1"># Número de vecinos del modelo</span>
-                   <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]}]</span>
+<span class="n">param_grid_knn3</span> <span class="o">=</span> <span class="p">[{</span> <span class="s1">&#39;clasificador__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span> <span class="p">,</span> <span class="mi">100</span><span class="p">),</span><span class="c1"># Número de vecinos del modelo</span>
+                   <span class="s1">&#39;clasificador__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]}]</span>
 
-<span class="n">kf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">kf3</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
 
-<span class="n">grid_met</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_knn</span><span class="p">,</span> <span class="n">param_grid_knn</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kf</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;roc_auc&#39;</span><span class="p">)</span>
+<span class="n">grid_met3</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_knn3</span><span class="p">,</span> <span class="n">param_grid_knn3</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kf3</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;roc_auc&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_met</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de entrenamiento: &quot;</span><span class="p">,</span><span class="n">grid_met</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_met3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_met3</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de entrenamiento: &quot;</span><span class="p">,</span><span class="n">grid_met3</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+
+<span class="c1"># Predicción en conjunto de prueba</span>
+<span class="n">y_pred3</span> <span class="o">=</span> <span class="n">grid_met3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)</span>
+<span class="n">prob_knn3</span> <span class="o">=</span> <span class="n">grid_met3</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  
+
+<span class="c1"># AUC en conjunto de prueba</span>
+<span class="n">auc_prueba3</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">prob_knn3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de prueba: &quot;</span><span class="p">,</span> <span class="n">auc_prueba3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__n_neighbors&#39;: 15, &#39;clasificador__weights&#39;: &#39;distance&#39;}
-Mejor AUC en conjunto de entrenamiento:  0.8242267120298731
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__n_neighbors&#39;: 99, &#39;clasificador__weights&#39;: &#39;distance&#39;}
+Mejor AUC en conjunto de entrenamiento:  0.8223059443930285
+Mejor AUC en conjunto de prueba:  0.8065904161311055
 </pre></div>
 </div>
 </div>
 </div>
+<p>El modelo K-NN con <strong>99</strong> vecinos y pesos basados en la distancia ha logrado un rendimiento aceptable. En el conjunto de entrenamiento, se obtiene un AUC de <strong>0.822</strong>, lo que indica que el modelo es capaz de separar correctamente las clases con un buen nivel de precisión en los datos de entrenamiento.</p>
+<p>En el conjunto de prueba, el AUC es de <strong>0.807</strong>, lo cual sugiere que el rendimiento del modelo es bueno.</p>
 </section>
 <section id="id7">
 <h3><strong>Modelo Regresión Logística</strong><a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>Siguiendo, se repite el mismo proceso y con los mismos hiperparámetros que la <code class="docutils literal notranslate"><span class="pre">proteina1</span></code> para el modelo <code class="docutils literal notranslate"><span class="pre">Regresión</span> <span class="pre">Logistica</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_rl</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">))])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_rl3</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span> <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clasificador&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">))])</span>
 
-<span class="n">param_grid_lr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;clasificador__C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]}</span>
+<span class="n">param_grid_lr3</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;clasificador__C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]}</span>
 
-<span class="n">kf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">kf3</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
 
-<span class="n">grid_rl</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rl</span><span class="p">,</span> <span class="n">param_grid_lr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kf</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;roc_auc&#39;</span><span class="p">)</span>
+<span class="n">grid_rl3</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rl3</span><span class="p">,</span> <span class="n">param_grid_lr3</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kf3</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s1">&#39;roc_auc&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_rl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de entrenamiento:&quot;</span><span class="p">,</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_rl3</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train3</span><span class="p">,</span> <span class="n">y_train3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor parámetro:&quot;</span><span class="p">,</span> <span class="n">grid_rl3</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de entrenamiento:&quot;</span><span class="p">,</span> <span class="n">grid_rl3</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+
+<span class="c1"># Predicción en conjunto de prueba</span>
+<span class="n">y_pred33</span> <span class="o">=</span> <span class="n">grid_rl3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)</span>
+<span class="n">prob_knn33</span> <span class="o">=</span> <span class="n">grid_rl3</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> 
+
+<span class="c1"># AUC en conjunto de prueba</span>
+<span class="n">auc_prueba33</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">prob_knn33</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mejor AUC en conjunto de prueba: &quot;</span><span class="p">,</span> <span class="n">auc_prueba33</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor parámetro: {&#39;clasificador__C&#39;: 0.01}
-Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
+Mejor AUC en conjunto de entrenamiento: 0.8985993904078861
+Mejor AUC en conjunto de prueba:  0.857072537139114
 </pre></div>
 </div>
 </div>
 </div>
+<p>El modelo de <strong>Regresión Logística</strong>, con un valor de <strong>C = 0.01</strong> , logró un AUC de <strong>0.899</strong> en el conjunto de entrenamiento. En el conjunto de prueba, el AUC fue de <strong>0.857</strong>, lo que indica un buen rendimiento al enfrentarse a estos datos. Aunque hay una leve disminución en el AUC respecto al conjunto de entrenamiento, no parece haber signos de sobreajuste significativos.</p>
 </section>
 <section id="id8">
 <h3><strong>Cuadro 1</strong><a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>Ahora se realizan predicciones utilizando diferentes métricas: <code class="docutils literal notranslate"><span class="pre">precision</span></code>, <code class="docutils literal notranslate"><span class="pre">recall</span></code>, <code class="docutils literal notranslate"><span class="pre">F1-Score</span></code> y <code class="docutils literal notranslate"><span class="pre">ROC_AUC</span></code>, para evaluar el rendimiento de cada modelo utilizado.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
-<span class="n">KYP</span> <span class="o">=</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">LYP</span> <span class="o">=</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">KYP3</span> <span class="o">=</span> <span class="n">grid_met3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)</span>
+<span class="n">LYP3</span> <span class="o">=</span> <span class="n">grid_rl3</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)</span>
 
-<span class="c1"># Evalua las predicciones en cada métrica con las etiquetas del test</span>
-<span class="n">tabla1</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">prob_knn3</span> <span class="o">=</span> <span class="n">grid_met3</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">prob_lr3</span> <span class="o">=</span> <span class="n">grid_rl3</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="n">tabla3</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;K-nn&#39;</span><span class="p">,</span> <span class="s1">&#39;Regresión logística&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span> <span class="c1"># K-NN</span>
-        <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span> <span class="c1"># Regresión logística</span>
-    <span class="p">],</span>
-    <span class="s1">&#39;Recall&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span>
-        <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>
-    <span class="p">],</span>
-    <span class="s1">&#39;F1 Score&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span>
-        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>
-    <span class="p">],</span>
-    <span class="c1"># En ROC AUC, No se tienen en cuenta las etiquetas sino las probabilidades</span>
-    <span class="s1">&#39;ROC AUC&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">KYP</span><span class="p">),</span>
-        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">LYP</span><span class="p">)</span>
+        <span class="s1">&#39;Precisión&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">KYP3</span><span class="p">),</span>
+            <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">LYP3</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;Recall&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">KYP3</span><span class="p">),</span>
+            <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">LYP3</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;F1 Score&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">KYP3</span><span class="p">),</span>
+            <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">LYP3</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;AUC&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">prob_knn3</span><span class="p">),</span>
+            <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">prob_lr3</span><span class="p">)</span>
     <span class="p">]</span>
 <span class="p">}</span>
 
-<span class="n">cuadro1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tabla1</span><span class="p">)</span>
-<span class="n">cuadro1</span>
+<span class="n">cuadro3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tabla3</span><span class="p">)</span>
+<span class="n">cuadro3</span>
 </pre></div>
 </div>
 </div>
@@ -2374,33 +1939,39 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
     <tr style="text-align: right;">
       <th></th>
       <th>Modelo</th>
-      <th>Precision</th>
+      <th>Precisión</th>
       <th>Recall</th>
       <th>F1 Score</th>
-      <th>ROC AUC</th>
+      <th>AUC</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
       <td>K-nn</td>
-      <td>0.846154</td>
-      <td>0.059783</td>
-      <td>0.111675</td>
-      <td>0.529851</td>
+      <td>0.416667</td>
+      <td>0.048077</td>
+      <td>0.086207</td>
+      <td>0.806590</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Regresión logística</td>
-      <td>0.594059</td>
-      <td>0.326087</td>
-      <td>0.421053</td>
-      <td>0.662217</td>
+      <td>0.272727</td>
+      <td>0.028846</td>
+      <td>0.052174</td>
+      <td>0.857073</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+<p>Al analizar los resultados de los modelos <strong>K-NN</strong> y <strong>Regresión Logística</strong>, se puede observar lo siguiente:</p>
+<ul class="simple">
+<li><p>El modelo <strong>K-NN</strong> presenta una precisión de <strong>0.4167</strong>, lo que indica que algo más del 41% de las predicciones de clase positiva son correctas. Sin embargo, tiene un recall bajo de 0.0481, lo que sugiere que el modelo identifica correctamente menos del 5% de las muestras que realmente pertenecen a la clase positiva.</p></li>
+<li><p>El modelo de <strong>Regresión Logística</strong> tiene una precisión de <strong>0.2727</strong>, inferior a la de K-NN, lo que significa que el 27% de las predicciones positivas son correctas. El recall es aún más bajo, con solo <strong>0.0288</strong>, indicando que menos del 3% de las muestras positivas son correctamente identificadas.</p></li>
+</ul>
+<p>En conclusión, aunque ambos modelos tienen problemas para identificar correctamente la clase positiva, el modelo de <strong>Regresión Logística</strong> tiene un mejor rendimiento en términos de AUC, lo que indica una mejor capacidad para discriminar entre las clases positivas y negativas, mientras que <strong>K-NN</strong> tiene una mayor precisión en las predicciones positivas.</p>
 </section>
 <section id="id9">
 <h3><strong>Matrices de confusión</strong><a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
@@ -2418,9 +1989,9 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 
 <span class="c1"># Gráfico de la Matriz de Confusión para KNN</span>
 
-<span class="n">y_pred_knn</span> <span class="o">=</span> <span class="n">KYP</span>
-<span class="n">cm_knn</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knn</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_knn</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
+<span class="n">y_pred_knn3</span> <span class="o">=</span> <span class="n">KYP3</span>
+<span class="n">cm_knn3</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">y_pred_knn3</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_knn3</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
             <span class="n">yticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Real: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Real: 1&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predicciones&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valores Reales&#39;</span><span class="p">)</span>
@@ -2428,9 +1999,9 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 
 <span class="c1"># Gráfico de la Matriz de Confusión para la Regresión Logística</span>
 
-<span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">LYP</span>
-<span class="n">cm_logistic</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>  <span class="c1"># Crear la matriz de confusión</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_logistic</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
+<span class="n">y_pred_lr3</span> <span class="o">=</span> <span class="n">LYP3</span>
+<span class="n">cm_logistic3</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">y_pred_lr3</span><span class="p">)</span>  <span class="c1"># Crear la matriz de confusión</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_logistic3</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="n">fmt</span> <span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Predicción: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Predicción: 1&#39;</span><span class="p">],</span>
             <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Real: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Real: 1&#39;</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Predicciones&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Valores Reales&#39;</span><span class="p">)</span>
@@ -2443,29 +2014,35 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e84752b26d6385a9b428f18b6eece5f9decfca32e77baeff9cf75a38b80011fd.png" src="_images/e84752b26d6385a9b428f18b6eece5f9decfca32e77baeff9cf75a38b80011fd.png" />
+<img alt="_images/2b6360260bc1ebd2d7427ab09ae33cbbdc9c6f3d836df5e8a36ef363af8f4706.png" src="_images/2b6360260bc1ebd2d7427ab09ae33cbbdc9c6f3d836df5e8a36ef363af8f4706.png" />
 </div>
 </div>
+<p>Al observar las matrices de confusión se puede decir lo siguiente:</p>
+<ul class="simple">
+<li><p>En el modelo <strong>K-NN</strong>, de las <strong>24896</strong> muestras negativas (clase 0), <strong>7</strong> fueron mal clasificadas como positivas (clase 1). De las <strong>104</strong> muestras positivas (clase 1), solo <strong>5</strong> fueron correctamente clasificadas como positivas, lo que muestra un bajo rendimiento en la detección de la clase positiva.</p></li>
+<li><p>En el modelo de <strong>Regresión Logística</strong>, de las <strong>24888</strong> muestras negativas, <strong>8</strong> fueron mal clasificadas como positivas. Sin embargo, de las <strong>104</strong> muestras positivas, solo <strong>3</strong> fueron correctamente clasificadas como positivas, lo que también indica un bajo rendimiento en la detección de positivos.</p></li>
+</ul>
+<p>En conclusión, aunque la regresión logística comete más errores en las muestras negativas que K-NN, ambos modelos tienen dificultades para clasificar correctamente las muestras de la clase positiva.</p>
 </section>
 <section id="id10">
 <h3><strong>Curvas ROC</strong><a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_prob_knn</span> <span class="o">=</span> <span class="n">grid_met</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para K-NN</span>
-<span class="n">y_pred_prob_lr</span> <span class="o">=</span> <span class="n">grid_rl</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para Regresión Logística</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_prob_knn3</span> <span class="o">=</span> <span class="n">grid_met3</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para K-NN</span>
+<span class="n">y_pred_prob_lr3</span> <span class="o">=</span> <span class="n">grid_rl3</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test3</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Probabilidades clase positiva para Regresión Logística</span>
 
 <span class="c1"># Valores para la curva ROC para K-NN</span>
-<span class="n">fpr_knn</span><span class="p">,</span> <span class="n">tpr_knn</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob_knn</span><span class="p">)</span>
-<span class="n">roc_auc_knn</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob_knn</span><span class="p">)</span>
+<span class="n">fpr_knn3</span><span class="p">,</span> <span class="n">tpr_knn3</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">y_pred_prob_knn3</span><span class="p">)</span>
+<span class="n">roc_auc_knn3</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">y_pred_prob_knn3</span><span class="p">)</span>
 
 <span class="c1"># Valores para la curva ROC para Regresión Logística</span>
-<span class="n">fpr_lr</span><span class="p">,</span> <span class="n">tpr_lr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob_lr</span><span class="p">)</span>
-<span class="n">roc_auc_lr</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_prob_lr</span><span class="p">)</span>
+<span class="n">fpr_lr3</span><span class="p">,</span> <span class="n">tpr_lr3</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">y_pred_prob_lr3</span><span class="p">)</span>
+<span class="n">roc_auc_lr3</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test3</span><span class="p">,</span> <span class="n">y_pred_prob_lr3</span><span class="p">)</span>
 
 <span class="c1"># Graficar ambas curvas ROC en el mismo gráfico</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_knn</span><span class="p">,</span> <span class="n">tpr_knn</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#FF69B4&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;K-NN (AUC = </span><span class="si">{</span><span class="n">roc_auc_knn</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_lr</span><span class="p">,</span> <span class="n">tpr_lr</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#8B3A62&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Regresión Logística (AUC = </span><span class="si">{</span><span class="n">roc_auc_lr</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_knn3</span><span class="p">,</span> <span class="n">tpr_knn3</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#FF69B4&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;K-NN (AUC = </span><span class="si">{</span><span class="n">roc_auc_knn3</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr_lr3</span><span class="p">,</span> <span class="n">tpr_lr3</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#8B3A62&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Regresión Logística (AUC = </span><span class="si">{</span><span class="n">roc_auc_lr3</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
 
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tasa de Falsos Positivos (FPR)&#39;</span><span class="p">)</span>
@@ -2478,9 +2055,10 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/edc45a38b8d5834dcce3b1e3a408be0743934cfb70dc18029d481ed94e89f5ac.png" src="_images/edc45a38b8d5834dcce3b1e3a408be0743934cfb70dc18029d481ed94e89f5ac.png" />
+<img alt="_images/6de121f581ad8d1e175713f509db9a7371e605ddcf517e972900d387156233da.png" src="_images/6de121f581ad8d1e175713f509db9a7371e605ddcf517e972900d387156233da.png" />
 </div>
 </div>
+<p>La gráfica ROC muestra que el modelo <strong>Regresión Logística</strong> tiene un <strong>AUC</strong> de <strong>0.86</strong>, superando al <strong>K-NN</strong>, que tiene un AUC de <strong>0.81</strong>. Esto indica que la <strong>Regresión Logística</strong> es más efectiva en la discriminación entre clases positivas y negativas, con una curva más estable y consistente. Aunque ambos modelos tienen un rendimiento razonable, la regresión logística demuestra una mayor capacidad de clasificación.</p>
 </section>
 </section>
 </section>
@@ -2549,9 +2127,12 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Ejercicio 3</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#predict-new-medicines-with-belka"><strong>Predict New Medicines with BELKA</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-de-clasificacion"><strong>Modelos de Clasificación</strong>.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bases-de-datos"><strong>Bases de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notas"><strong>Notas</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-proteina-1-seh"><strong>Modelos proteína 1 (SEH)</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-knn"><strong>Modelo KNN</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-regresion-logistica"><strong>Modelo Regresión Logística</strong></a></li>
@@ -2577,6 +2158,9 @@ Mejor AUC en conjunto de entrenamiento: 0.9492389162354249
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>

@@ -9,8 +9,8 @@
 
     - Dr. Lihki Rubio 
 
-### Información:
-        
+### Info: 
+
     - Ciencia de Datos
     - Universidad del Norte
     - Septiembre 2024

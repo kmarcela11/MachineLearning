@@ -180,9 +180,13 @@
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio1.html"><strong>Ejercicio 1</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Ejercicio2.html">PRUEBA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ejercicio2.html"><strong>Ejercicio 2</strong></a></li>
+
+
 <li class="toctree-l1"><a class="reference internal" href="Ejercicio3.html"><strong>Ejercicio 3</strong></a></li>
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Ejercicio 4</strong></a></li>
+
 </ul>
 
     </div>
@@ -378,8 +382,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Ejercicio 4</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#single-cell-perturbations"><strong>Single Cell Perturbations</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-de-regresion"><strong>Modelos de Regresión</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrica-asignada"><strong>Métrica asignada</strong></a></li>
 </ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos"><strong>Datos</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-knn-regressor"><strong>MODELO KNN Regressor</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-regresion-lineal"><strong>Modelo de regresión lineal</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuadro-2"><strong>Cuadro 2</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -392,6 +411,9 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ejercicio-4">
 <h1><strong>Ejercicio 4</strong><a class="headerlink" href="#ejercicio-4" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="single-cell-perturbations">
+<h1><strong>Single Cell Perturbations</strong><a class="headerlink" href="#single-cell-perturbations" title="Link to this heading">#</a></h1>
 <section id="modelos-de-regresion">
 <h2><strong>Modelos de Regresión</strong><a class="headerlink" href="#modelos-de-regresion" title="Link to this heading">#</a></h2>
 <p>Considere el conjunto de datos <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Problems–</span> <span class="pre">Single-Cell</span> <span class="pre">Perturbations</span></code>. Implemente la versión de regresión de cada uno de los modelos estudiados en clases, esto es KNN y Regresión Lineal en el conjunto de datos suministrado. Construir una tabla de error con las métricas usuales de regresión, MAPE, MAE, RMSE, MSE, R2 (ver Table 2). Utilice la métrica Mean Rowwise Root Mean Squared Error (MRRMSE) en la evaluación y validación, para seleccionar el mejor modelo de regresión.</p>
@@ -424,6 +446,1210 @@ document.write(`
 </tbody>
 </table>
 </div>
+</section>
+<section id="librerias-y-modulos-necesarios">
+<h2><strong>Librerías y módulos necesarios</strong><a class="headerlink" href="#librerias-y-modulos-necesarios" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span><span class="n">make_scorer</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">pandas</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">26</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">del</span> <span class="n">_hard_dependencies</span><span class="p">,</span> <span class="n">_dependency</span><span class="p">,</span> <span class="n">_missing_dependencies</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="c1"># numpy compat</span>
+<span class="ne">---&gt; </span><span class="mi">26</span>     <span class="kn">from</span> <span class="nn">pandas.compat</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>         <span class="n">is_numpy_dev</span> <span class="k">as</span> <span class="n">_is_numpy_dev</span><span class="p">,</span>  <span class="c1"># pyright: ignore[reportUnusedImport] # noqa: F401</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">_err</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="n">_module</span> <span class="o">=</span> <span class="n">_err</span><span class="o">.</span><span class="n">name</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">pandas</span>\<span class="n">compat</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">26</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas.compat._constants</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">IS64</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">ISMUSL</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">PYPY</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="kn">import</span> <span class="nn">pandas.compat.compressors</span>
+<span class="ne">---&gt; </span><span class="mi">26</span> <span class="kn">from</span> <span class="nn">pandas.compat.numpy</span> <span class="kn">import</span> <span class="n">is_numpy_dev</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="kn">from</span> <span class="nn">pandas.compat.pyarrow</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="n">pa_version_under10p1</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="n">pa_version_under11p0</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span>     <span class="n">pa_version_under16p0</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+
+<span class="n">File</span> <span class="o">~</span>\<span class="n">miniconda3</span>\<span class="n">envs</span>\<span class="n">ml_venv</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">pandas</span>\<span class="n">compat</span>\<span class="n">numpy</span>\<span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">pandas.util.version</span> <span class="kn">import</span> <span class="n">Version</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># numpy versioning</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">_np_version</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">__version__</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">_nlv</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="n">_np_version</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">np_version_lt1p23</span> <span class="o">=</span> <span class="n">_nlv</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.23&quot;</span><span class="p">)</span>
+
+<span class="ne">AttributeError</span>: module &#39;numpy&#39; has no attribute &#39;__version__&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="metrica-asignada">
+<h3><strong>Métrica asignada</strong><a class="headerlink" href="#metrica-asignada" title="Link to this heading">#</a></h3>
+<p>Esta métrica corresponde a la sugerida por el enunciado, además esta mencionada en la información de la base de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">MRRMSE</span><span class="p">(</span><span class="n">y_real</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">rowwise_rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y_real</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rowwise_rmse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>La métrica <strong>MRRMSE</strong> (Mean Row-wise Root Mean Square Error) mide el error promedio entre los valores predichos y los reales por fila, lo que permite evaluar la precisión de predicciones en un conjunto de datos estructurados en filas, como en matrices de expresión génica. Primero calcula el <strong>RMSE</strong> por fila, para luego promediar estos valores, destacando su capacidad de capturar errores individuales por observación. En este contexto, se espera que el <strong>MRRMSE</strong> sea lo más bajo posible, lo que indicaría que las predicciones están muy cercanas a los valores reales en cada fila, lo que refleja un buen ajuste del modelo.</p>
+</section>
+</section>
+<section id="datos">
+<h2><strong>Datos</strong><a class="headerlink" href="#datos" title="Link to this heading">#</a></h2>
+<p>Después de haber realizado un análisis descriptivo de la base de datos original (detallado en el ejercicio 2), finalmente se ha obtenido una base de datos codificada y preparada, la cual ha sido almacenada en un archivo CSV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">de_train_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;C:/Users/kamac/OneDrive/Desktop/MachineLearningUN/train.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">de_train_final</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cell_type_B cells</th>
+      <th>cell_type_Myeloid cells</th>
+      <th>cell_type_NK cells</th>
+      <th>cell_type_T cells CD4+</th>
+      <th>cell_type_T cells CD8+</th>
+      <th>cell_type_T regulatory cells</th>
+      <th>sm_name_5-(9-Isopropyl-8-methyl-2-morpholino-9H-purin-6-yl)pyrimidin-2-amine</th>
+      <th>sm_name_ABT-199 (GDC-0199)</th>
+      <th>sm_name_ABT737</th>
+      <th>sm_name_AMD-070 (hydrochloride)</th>
+      <th>...</th>
+      <th>ZUP1</th>
+      <th>ZW10</th>
+      <th>ZWILCH</th>
+      <th>ZWINT</th>
+      <th>ZXDA</th>
+      <th>ZXDB</th>
+      <th>ZXDC</th>
+      <th>ZYG11B</th>
+      <th>ZYX</th>
+      <th>ZZEF1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>-0.227781</td>
+      <td>-0.010752</td>
+      <td>-0.023881</td>
+      <td>0.674536</td>
+      <td>-0.453068</td>
+      <td>0.005164</td>
+      <td>-0.094959</td>
+      <td>0.034127</td>
+      <td>0.221377</td>
+      <td>0.368755</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>-0.494985</td>
+      <td>-0.303419</td>
+      <td>0.304955</td>
+      <td>-0.333905</td>
+      <td>-0.315516</td>
+      <td>-0.369626</td>
+      <td>-0.095079</td>
+      <td>0.704780</td>
+      <td>1.096702</td>
+      <td>-0.869887</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>-0.119422</td>
+      <td>-0.033608</td>
+      <td>-0.153123</td>
+      <td>0.183597</td>
+      <td>-0.555678</td>
+      <td>-1.494789</td>
+      <td>-0.213550</td>
+      <td>0.415768</td>
+      <td>0.078439</td>
+      <td>-0.259365</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.451679</td>
+      <td>0.704643</td>
+      <td>0.015468</td>
+      <td>-0.103868</td>
+      <td>0.865027</td>
+      <td>0.189114</td>
+      <td>0.224700</td>
+      <td>-0.048233</td>
+      <td>0.216139</td>
+      <td>-0.085024</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.758474</td>
+      <td>0.510762</td>
+      <td>0.607401</td>
+      <td>-0.123059</td>
+      <td>0.214366</td>
+      <td>0.487838</td>
+      <td>-0.819775</td>
+      <td>0.112365</td>
+      <td>-0.122193</td>
+      <td>0.676629</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>609</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>-0.549987</td>
+      <td>-2.200925</td>
+      <td>0.359806</td>
+      <td>1.073983</td>
+      <td>0.356939</td>
+      <td>-0.029603</td>
+      <td>-0.528817</td>
+      <td>0.105138</td>
+      <td>0.491015</td>
+      <td>-0.979951</td>
+    </tr>
+    <tr>
+      <th>610</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>-1.236905</td>
+      <td>0.003854</td>
+      <td>-0.197569</td>
+      <td>-0.175307</td>
+      <td>0.101391</td>
+      <td>1.028394</td>
+      <td>0.034144</td>
+      <td>-0.231642</td>
+      <td>1.023994</td>
+      <td>-0.064760</td>
+    </tr>
+    <tr>
+      <th>611</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.077579</td>
+      <td>-1.101637</td>
+      <td>0.457201</td>
+      <td>0.535184</td>
+      <td>-0.198404</td>
+      <td>-0.005004</td>
+      <td>0.552810</td>
+      <td>-0.209077</td>
+      <td>0.389751</td>
+      <td>-0.337082</td>
+    </tr>
+    <tr>
+      <th>612</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.005951</td>
+      <td>-0.893093</td>
+      <td>-1.003029</td>
+      <td>-0.080367</td>
+      <td>-0.076604</td>
+      <td>0.024849</td>
+      <td>0.012862</td>
+      <td>-0.029684</td>
+      <td>0.005506</td>
+      <td>-1.733112</td>
+    </tr>
+    <tr>
+      <th>613</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.232343</td>
+      <td>-2.247816</td>
+      <td>-0.346036</td>
+      <td>-0.919567</td>
+      <td>-1.131372</td>
+      <td>-0.120252</td>
+      <td>-0.064537</td>
+      <td>-0.603280</td>
+      <td>-0.098041</td>
+      <td>-0.750681</td>
+    </tr>
+  </tbody>
+</table>
+<p>614 rows × 18363 columns</p>
+</div></div></div>
+</div>
+<p>Nótese que la base de datos actual cuenta con <strong>614</strong> observaciones y <strong>18363</strong> columnas</p>
+<p>Ahora, se divide el DataFrame <code class="docutils literal notranslate"><span class="pre">de_train_final</span></code> en dos partes: las variables predictoras (almacenadas en <code class="docutils literal notranslate"><span class="pre">x</span></code>) y las variables objetivo (almacenadas en <code class="docutils literal notranslate"><span class="pre">y</span></code>). Específicamente, las primeras 152 columnas de la base de datos se asignan a <code class="docutils literal notranslate"><span class="pre">x</span></code>, que representará los predictores o características, mientras que las columnas a partir de la posición 152 en adelante se asignan a <code class="docutils literal notranslate"><span class="pre">y</span></code>, que representan las respuestas o la variable objetivo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">de_train_final</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">152</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">de_train_final</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">152</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cell_type_B cells</th>
+      <th>cell_type_Myeloid cells</th>
+      <th>cell_type_NK cells</th>
+      <th>cell_type_T cells CD4+</th>
+      <th>cell_type_T cells CD8+</th>
+      <th>cell_type_T regulatory cells</th>
+      <th>sm_name_5-(9-Isopropyl-8-methyl-2-morpholino-9H-purin-6-yl)pyrimidin-2-amine</th>
+      <th>sm_name_ABT-199 (GDC-0199)</th>
+      <th>sm_name_ABT737</th>
+      <th>sm_name_AMD-070 (hydrochloride)</th>
+      <th>...</th>
+      <th>sm_name_Tivozanib</th>
+      <th>sm_name_Topotecan</th>
+      <th>sm_name_Tosedostat</th>
+      <th>sm_name_Trametinib</th>
+      <th>sm_name_UNII-BXU45ZH6LI</th>
+      <th>sm_name_Vandetanib</th>
+      <th>sm_name_Vanoxerine</th>
+      <th>sm_name_Vardenafil</th>
+      <th>sm_name_Vorinostat</th>
+      <th>sm_name_YK 4-279</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>609</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>610</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>611</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>612</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>613</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>614 rows × 152 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A1BG</th>
+      <th>A1BG-AS1</th>
+      <th>A2M</th>
+      <th>A2M-AS1</th>
+      <th>A2MP1</th>
+      <th>A4GALT</th>
+      <th>AAAS</th>
+      <th>AACS</th>
+      <th>AAGAB</th>
+      <th>AAK1</th>
+      <th>...</th>
+      <th>ZUP1</th>
+      <th>ZW10</th>
+      <th>ZWILCH</th>
+      <th>ZWINT</th>
+      <th>ZXDA</th>
+      <th>ZXDB</th>
+      <th>ZXDC</th>
+      <th>ZYG11B</th>
+      <th>ZYX</th>
+      <th>ZZEF1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.104720</td>
+      <td>-0.077524</td>
+      <td>-1.625596</td>
+      <td>-0.144545</td>
+      <td>0.143555</td>
+      <td>0.073229</td>
+      <td>-0.016823</td>
+      <td>0.101717</td>
+      <td>-0.005153</td>
+      <td>1.043629</td>
+      <td>...</td>
+      <td>-0.227781</td>
+      <td>-0.010752</td>
+      <td>-0.023881</td>
+      <td>0.674536</td>
+      <td>-0.453068</td>
+      <td>0.005164</td>
+      <td>-0.094959</td>
+      <td>0.034127</td>
+      <td>0.221377</td>
+      <td>0.368755</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.915953</td>
+      <td>-0.884380</td>
+      <td>0.371834</td>
+      <td>-0.081677</td>
+      <td>-0.498266</td>
+      <td>0.203559</td>
+      <td>0.604656</td>
+      <td>0.498592</td>
+      <td>-0.317184</td>
+      <td>0.375550</td>
+      <td>...</td>
+      <td>-0.494985</td>
+      <td>-0.303419</td>
+      <td>0.304955</td>
+      <td>-0.333905</td>
+      <td>-0.315516</td>
+      <td>-0.369626</td>
+      <td>-0.095079</td>
+      <td>0.704780</td>
+      <td>1.096702</td>
+      <td>-0.869887</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.387721</td>
+      <td>-0.305378</td>
+      <td>0.567777</td>
+      <td>0.303895</td>
+      <td>-0.022653</td>
+      <td>-0.480681</td>
+      <td>0.467144</td>
+      <td>-0.293205</td>
+      <td>-0.005098</td>
+      <td>0.214918</td>
+      <td>...</td>
+      <td>-0.119422</td>
+      <td>-0.033608</td>
+      <td>-0.153123</td>
+      <td>0.183597</td>
+      <td>-0.555678</td>
+      <td>-1.494789</td>
+      <td>-0.213550</td>
+      <td>0.415768</td>
+      <td>0.078439</td>
+      <td>-0.259365</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.232893</td>
+      <td>0.129029</td>
+      <td>0.336897</td>
+      <td>0.486946</td>
+      <td>0.767661</td>
+      <td>0.718590</td>
+      <td>-0.162145</td>
+      <td>0.157206</td>
+      <td>-3.654218</td>
+      <td>-0.212402</td>
+      <td>...</td>
+      <td>0.451679</td>
+      <td>0.704643</td>
+      <td>0.015468</td>
+      <td>-0.103868</td>
+      <td>0.865027</td>
+      <td>0.189114</td>
+      <td>0.224700</td>
+      <td>-0.048233</td>
+      <td>0.216139</td>
+      <td>-0.085024</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4.290652</td>
+      <td>-0.063864</td>
+      <td>-0.017443</td>
+      <td>-0.541154</td>
+      <td>0.570982</td>
+      <td>2.022829</td>
+      <td>0.600011</td>
+      <td>1.231275</td>
+      <td>0.236739</td>
+      <td>0.338703</td>
+      <td>...</td>
+      <td>0.758474</td>
+      <td>0.510762</td>
+      <td>0.607401</td>
+      <td>-0.123059</td>
+      <td>0.214366</td>
+      <td>0.487838</td>
+      <td>-0.819775</td>
+      <td>0.112365</td>
+      <td>-0.122193</td>
+      <td>0.676629</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>609</th>
+      <td>-0.014372</td>
+      <td>-0.122464</td>
+      <td>-0.456366</td>
+      <td>-0.147894</td>
+      <td>-0.545382</td>
+      <td>-0.544709</td>
+      <td>0.282458</td>
+      <td>-0.431359</td>
+      <td>-0.364961</td>
+      <td>0.043123</td>
+      <td>...</td>
+      <td>-0.549987</td>
+      <td>-2.200925</td>
+      <td>0.359806</td>
+      <td>1.073983</td>
+      <td>0.356939</td>
+      <td>-0.029603</td>
+      <td>-0.528817</td>
+      <td>0.105138</td>
+      <td>0.491015</td>
+      <td>-0.979951</td>
+    </tr>
+    <tr>
+      <th>610</th>
+      <td>-0.455549</td>
+      <td>0.188181</td>
+      <td>0.595734</td>
+      <td>-0.100299</td>
+      <td>0.786192</td>
+      <td>0.090954</td>
+      <td>0.169523</td>
+      <td>0.428297</td>
+      <td>0.106553</td>
+      <td>0.435088</td>
+      <td>...</td>
+      <td>-1.236905</td>
+      <td>0.003854</td>
+      <td>-0.197569</td>
+      <td>-0.175307</td>
+      <td>0.101391</td>
+      <td>1.028394</td>
+      <td>0.034144</td>
+      <td>-0.231642</td>
+      <td>1.023994</td>
+      <td>-0.064760</td>
+    </tr>
+    <tr>
+      <th>611</th>
+      <td>0.338168</td>
+      <td>-0.109079</td>
+      <td>0.270182</td>
+      <td>-0.436586</td>
+      <td>-0.069476</td>
+      <td>-0.061539</td>
+      <td>0.002818</td>
+      <td>-0.027167</td>
+      <td>-0.383696</td>
+      <td>0.226289</td>
+      <td>...</td>
+      <td>0.077579</td>
+      <td>-1.101637</td>
+      <td>0.457201</td>
+      <td>0.535184</td>
+      <td>-0.198404</td>
+      <td>-0.005004</td>
+      <td>0.552810</td>
+      <td>-0.209077</td>
+      <td>0.389751</td>
+      <td>-0.337082</td>
+    </tr>
+    <tr>
+      <th>612</th>
+      <td>0.101138</td>
+      <td>-0.409724</td>
+      <td>-0.606292</td>
+      <td>-0.071300</td>
+      <td>-0.001789</td>
+      <td>-0.706087</td>
+      <td>-0.620919</td>
+      <td>-1.485381</td>
+      <td>0.059303</td>
+      <td>-0.032584</td>
+      <td>...</td>
+      <td>0.005951</td>
+      <td>-0.893093</td>
+      <td>-1.003029</td>
+      <td>-0.080367</td>
+      <td>-0.076604</td>
+      <td>0.024849</td>
+      <td>0.012862</td>
+      <td>-0.029684</td>
+      <td>0.005506</td>
+      <td>-1.733112</td>
+    </tr>
+    <tr>
+      <th>613</th>
+      <td>-0.757116</td>
+      <td>0.085910</td>
+      <td>-0.730025</td>
+      <td>-1.367801</td>
+      <td>-0.695944</td>
+      <td>-0.724985</td>
+      <td>0.121436</td>
+      <td>-0.785661</td>
+      <td>-0.240842</td>
+      <td>-0.139620</td>
+      <td>...</td>
+      <td>0.232343</td>
+      <td>-2.247816</td>
+      <td>-0.346036</td>
+      <td>-0.919567</td>
+      <td>-1.131372</td>
+      <td>-0.120252</td>
+      <td>-0.064537</td>
+      <td>-0.603280</td>
+      <td>-0.098041</td>
+      <td>-0.750681</td>
+    </tr>
+  </tbody>
+</table>
+<p>614 rows × 18211 columns</p>
+</div></div></div>
+</div>
+<p>Antes de aplicar los modelos se divide el conjunto de datos en dos partes: entrenamiento y prueba. Con la función <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code>, las variables <code class="docutils literal notranslate"><span class="pre">X</span></code> y <code class="docutils literal notranslate"><span class="pre">y</span></code> se dividen en <code class="docutils literal notranslate"><span class="pre">X_train</span></code> y <code class="docutils literal notranslate"><span class="pre">X_test</span></code> (para las características) y en <code class="docutils literal notranslate"><span class="pre">y_train</span></code> y <code class="docutils literal notranslate"><span class="pre">y_test</span></code> (para la variable objetivo). Además, se está crea un “scoring” personalizado utilizando la función make_scorer, con la métrica MRRMSE (definida anteriormente), donde greater_is_better=False indica que se considera mejor un valor más bajo para la métrica, es decir, cuanto menor sea el error, mejor será el modelo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">scoring</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">MRRMSE</span><span class="p">,</span> <span class="n">greater_is_better</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="c1"># Indica que un valor más bajo de la métrica MRRMSE es mejor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="modelo-knn-regressor">
+<h3><strong>MODELO KNN Regressor</strong><a class="headerlink" href="#modelo-knn-regressor" title="Link to this heading">#</a></h3>
+<p>En este código, se entrena un modelo <strong>KNN Regressor</strong> usando un <strong>pipeline</strong> con estandarización (<code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code>). Se realiza una búsqueda de hiperparámetros con <strong>GridSearchCV</strong> utilizando un conjunto de parámetros que incluyen el número de vecinos (<code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>), la métrica de distancia (<code class="docutils literal notranslate"><span class="pre">metric</span></code>), el método de ponderación (<code class="docutils literal notranslate"><span class="pre">weights</span></code>), y el parámetro <code class="docutils literal notranslate"><span class="pre">p</span></code> para la métrica Minkowski. Se utiliza <strong>KFold</strong> con 10 divisiones y se evalúa el modelo mediante la métrica <strong>MRRMSE</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_kr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),(</span><span class="s1">&#39;knr&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">())])</span>
+
+<span class="n">param_grid_kr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;knr__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+                 <span class="s1">&#39;knr__metric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;euclidean&#39;</span><span class="p">,</span><span class="s1">&#39;minkowski&#39;</span><span class="p">,</span> <span class="s1">&#39;manhattan&#39;</span><span class="p">],</span>
+                 <span class="s1">&#39;knr__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">],</span>
+                 <span class="s1">&#39;knr__p&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]}</span>
+
+<span class="n">kfo</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">11</span><span class="p">)</span>
+
+<span class="n">grid_knr</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_kr</span><span class="p">,</span> <span class="n">param_grid_kr</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">kfo</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="n">scoring</span><span class="p">)</span>
+<span class="n">grid_knr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">y_pred_knr</span> <span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">mrrmse_knn</span> <span class="o">=</span> <span class="n">MRRMSE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_knr</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejores parámetros: </span><span class="si">{</span><span class="n">grid_knr</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de entrenamiento: </span><span class="si">{</span><span class="n">grid_knr</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de prueba: </span><span class="si">{</span><span class="n">mrrmse_knn</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s1">&#39;knn&#39;</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span><span class="p">())</span>
+<span class="p">])</span>
+
+<span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;knn__n_neighbors&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">)),</span>
+    <span class="s1">&#39;knn__metric&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;minkowski&#39;</span><span class="p">,</span> <span class="s1">&#39;euclidean&#39;</span><span class="p">,</span> <span class="s1">&#39;manhattan&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;knn__p&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s1">&#39;knn__weights&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="s1">&#39;distance&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">mrrmse_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">MRRMSE</span><span class="p">,</span> <span class="n">greater_is_better</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">gs_knn</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+<span class="n">gs_knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">mejor_modelo</span> <span class="o">=</span> <span class="n">gs_knn</span><span class="o">.</span><span class="n">best_estimator_</span>
+
+<span class="n">y_pred_train</span> <span class="o">=</span> <span class="n">mejor_modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">mejor_modelo</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">mrrmse_test</span> <span class="o">=</span> <span class="n">MRRMSE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">)</span>
+
+<span class="n">trains</span> <span class="o">=</span> <span class="n">mejor_modelo</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">tests</span> <span class="o">=</span> <span class="n">mejor_modelo</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mejores parámetros: </span><span class="si">{</span><span class="n">gs_knn</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de entrenamiento: </span><span class="si">{</span><span class="n">gs_knn</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de prueba: </span><span class="si">{</span><span class="n">mrrmse_test</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelo-de-regresion-lineal">
+<h3><strong>Modelo de regresión lineal</strong><a class="headerlink" href="#modelo-de-regresion-lineal" title="Link to this heading">#</a></h3>
+<p>Se entrena un modelo de <strong>regresión lineal</strong> utilizando un <strong>pipeline</strong> que incluye la estandarización de los datos con <code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline_lr</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())])</span>
+
+<span class="n">pipeline_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="n">y_pred_train_lr</span> <span class="o">=</span> <span class="n">pipeline_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">mrrmse_train_lr</span> <span class="o">=</span> <span class="n">MRRMSE</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_pred_train_lr</span><span class="p">)</span>
+
+<span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">pipeline_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">mrrmse_lr</span> <span class="o">=</span> <span class="n">MRRMSE</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de entrenamiento: </span><span class="si">{</span><span class="n">mrrmse_train_lr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;MRRMSE en el conjunto de prueba: </span><span class="si">{</span><span class="n">mrrmse_lr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MRRMSE en el conjunto de entrenamiento: 1.0340113450250037
+MRRMSE en el conjunto de prueba: 1.3655802559553298
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="cuadro-2">
+<h3><strong>Cuadro 2</strong><a class="headerlink" href="#cuadro-2" title="Link to this heading">#</a></h3>
+<p>Finalmente se realizan predicciones con los modelos <strong>K-NN</strong> y <strong>regresión lineal</strong>, luego se evalúan usando diversas métricas de error, como <strong>MAPE</strong> (Error absoluto medio en porcentaje), <strong>MAE</strong> (Error absoluto medio), <strong>RMSE</strong> (Raíz cuadrada del error cuadrático medio), <strong>MSE</strong> (Error cuadrático medio), y <strong>R2</strong> (Coeficiente de determinación).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se hacen las predicciones para poder comparar con las diferentes métricas</span>
+<span class="n">knr_predict</span><span class="o">=</span> <span class="n">grid_knr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">lr_predict</span> <span class="o">=</span> <span class="n">pipeline_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evalua las predicciones en cada métrica con las etiquetas del test</span>
+<span class="n">tabla2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;K-NN&#39;</span><span class="p">,</span> <span class="s1">&#39;Regresión lineal&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;MAPE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error absoluto medio en porcentaje</span>
+        <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
+        <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;MAE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error absoluto medio</span>
+        <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
+        <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Raíz cuadrada del error cuadrático medio</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">)),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">))</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;MSE&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Error cuadrático medio</span>
+        <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span> 
+        <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>  
+    <span class="p">],</span>
+    <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="c1"># Coeficiente de determinación</span>
+        <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">knr_predict</span><span class="p">),</span>
+        <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">lr_predict</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">cuadro2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tabla2</span><span class="p">)</span>
+<span class="n">cuadro2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Al revisar las métricas especificadas en la tabla, MAPE, MAE, MSE y RMSE, métricas asociadas al error, son menores en el modelo K-NN, indicando un mejor ajueste en este. Además, el modelo K-NN también presenta un coeficiente de determinación mayor: 76,95%, es decir, explica alrededor del 77% de la variabilidad en la expresión diferencial de los distintos genes. En cambio, el modelo de regresión lineal presenta errores mayores y solo esplixa el 20% de la variabilidad de los datos.</p>
+</section>
 </section>
 </section>
 
@@ -482,8 +1708,23 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Ejercicio 4</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#single-cell-perturbations"><strong>Single Cell Perturbations</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-de-regresion"><strong>Modelos de Regresión</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrica-asignada"><strong>Métrica asignada</strong></a></li>
 </ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos"><strong>Datos</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-knn-regressor"><strong>MODELO KNN Regressor</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-de-regresion-lineal"><strong>Modelo de regresión lineal</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cuadro-2"><strong>Cuadro 2</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
