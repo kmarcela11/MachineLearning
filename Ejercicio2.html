@@ -383,7 +383,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Ejercicio 2</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Ejercicio 2</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda-etl"><strong>EDA + ETL</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-1-predict-new-medicines-with-belka"><strong>Ejercicio 2.1: Predict New Medicines with BELKA</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contextualizacion"><strong>Contextualización</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos"><strong>Objetivos</strong></a></li>
@@ -493,6 +497,37 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ejercicio-2">
 <h1><strong>Ejercicio 2</strong><a class="headerlink" href="#ejercicio-2" title="Link to this heading">#</a></h1>
+<section id="eda-etl">
+<h2><strong>EDA + ETL</strong><a class="headerlink" href="#eda-etl" title="Link to this heading">#</a></h2>
+<p>Dado los siguientes conjuntos de datos <em>NeurIPS 2024 - Predict New Medicines with BELKA</em> y <em>Open Problems – Single-Cell Perturbations</em>, realizar un análisis exploratorio de datos el cual incluya lo siguiente:</p>
+<ol class="arabic simple">
+<li><p><strong>Análisis del problema de aplicación:</strong> Realice un resumen describiendo la importancia del problema, en qué consiste y la fuente de los datos. Realice descripción del tipo de variables, calcular número de observaciones, media, desviación estándar, mínimo, máximo, cuartiles, realizar conteo de datos faltantes y su porcentaje, histograma o diagrama de barras para la variable respuesta e independientes según corresponda. Análisis de simetría, datos atípicos y dispersión, etc., por medio de <em>boxplot()</em>. <strong>Análisis bivariado.</strong> Trazado de <em>scatterplot()</em> y <em>regplot()</em>. En cada figura agregar un análisis y descripción. Complemente el EDA con visualizaciones que muestren patrones importantes presentes en los datos.</p></li>
+<li><p><strong>Imputación de datos faltantes:</strong> Según corresponda, realizar imputación de datos faltantes usando imputación múltiple iterativa (ver <em>IterativeImputer()</em>). Realizar reducción de dimensionalidad por medio de la eliminación de columnas altamente correlacionadas usando <strong>Variance Inflation Factor (VIF)</strong>. Para esto se recomienda usar la siguiente librería <em>variance_inflation_factor()</em>. Un <strong>VIF ≥ 10</strong> indica alta multicolinealidad entre una variable independiente y más de dos variables explicativas. <strong>Recomendación:</strong> Eliminar una columna a la vez. Aquella con el máximo <strong>VIF ≥ 10</strong>. Luego, para el nuevo <em>pandas</em>, calcular nuevamente <strong>VIF</strong> e identificar nuevas columnas con <strong>VIF ≥ 10</strong> máximo, y así sucesivamente hasta obtener solo valores de <strong>VIF &lt; 10</strong>. Según corresponda, variables categóricas deben previamente codificarse usando por ejemplo <em>OneHotEncoder()</em> (ver por ejemplo <em>Aplicación: Titanic Dataset</em>). Pueden mantener las variables categóricas antes de la codificación previa al entrenamiento del modelo y reducir multicolinealidad usando la prueba <em>chi2_contingency()</em>. Si el número de variables explicativas es pequeño y, además, cada una de las variables son de gran importancia para explicar las predicciones, una alternativa correcta es mantenerlas todas. Como Científico de Datos, tome la decisión más adecuada y justifíquela.</p></li>
+</ol>
+</section>
+<section id="librerias-y-modulos-necesarios">
+<h2><strong>Librerías y módulos necesarios</strong><a class="headerlink" href="#librerias-y-modulos-necesarios" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">missingno</span> <span class="k">as</span> <span class="nn">msno</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">rdkit</span> <span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span> <span class="nn">rdkit.Chem</span> <span class="kn">import</span> <span class="n">Draw</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">kstest</span><span class="p">,</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span><span class="p">,</span> <span class="n">chi2</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LinearSegmentedColormap</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="ejercicio-2-1-predict-new-medicines-with-belka">
 <h1><strong>Ejercicio 2.1: Predict New Medicines with BELKA</strong><a class="headerlink" href="#ejercicio-2-1-predict-new-medicines-with-belka" title="Link to this heading">#</a></h1>
@@ -561,16 +596,6 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;C:/Users/kamac/OneDrive/Desktop/MachineLearningUN/train.parquet&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;C:/Users/kamac/OneDrive/Desktop/MachineLearningUN/train.parquet&#39;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -13700,7 +13725,11 @@ memory usage: 25.9+ MB
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Ejercicio 2</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Ejercicio 2</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eda-etl"><strong>EDA + ETL</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y módulos necesarios</strong></a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-1-predict-new-medicines-with-belka"><strong>Ejercicio 2.1: Predict New Medicines with BELKA</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contextualizacion"><strong>Contextualización</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos"><strong>Objetivos</strong></a></li>
